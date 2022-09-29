@@ -111,15 +111,15 @@ FimDoJogo:
 
 - [ ] Funções
   - [ ] main
-  - [ ] Loop Menu **_(Isaac)_**
-  - [ ] LoopJogo **_(Hugo)_**
-  - [ ] EstaSobreCampainha **_(Isaac e Guilherme)_**
-  - [ ] AtualizaPontos **_(Isaac e Guilherme)_**
+  - [ ] Loop Menu 		**_(Isaac)_**
+  - [ ] LoopJogo 		**_(Hugo)_**
+  - [ ] EstaSobreCampainha 	**_(Isaac e Guilherme)_**
+  - [ ] AtualizaPontos 		**_(Isaac e Guilherme)_**
   - [ ] LerNomeRestaurante
   - [ ] EntradaTeclado
   - [ ] ImprimeTelaJogo
-  - [ ] GerarComandas **_(Nicholas)_**
-  - [ ] FimDoJogo  **_(Isaac e Guilherme)_**
+  - [ ] GerarComandas 		**_(Nicholas)_**
+  - [ ] FimDoJogo  		**_(Isaac e Guilherme)_**
  
 - [ ] Sprites
   - [ ] Cenário
