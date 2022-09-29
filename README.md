@@ -21,7 +21,7 @@ Há 8 ingredientes possíveis. Cada ingrediente é um número binário. Para adi
 Obs: Possibilidade de implementação de livro de receitas (para criação de pratos complexos).
 Não é possível descartar o prato nem remover ingrediente que foi adicionado.
 
-![imagem ilustrativa do jogo]()
+![imagem ilustrativa do jogo](https://github.com/nicholasestevao/Jogo-OrgComp/blob/5af8dca0944659b6086717f526e8421fe7eb15a2/imagem_2022-09-29_194142780.png)
 
 ## Estrutura do Jogo:
  ```
