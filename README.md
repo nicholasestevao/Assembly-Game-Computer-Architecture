@@ -113,6 +113,7 @@ FimDoJogo:
   - [ ] main
   - [ ] LoopJogo
   - [ ] LerNomeRestaurante
+  - [ ] EntradaTeclado
   - [ ] ImprimeTelaJogo
   - [ ] GerarComandas
   - [ ] FimDoJogo
