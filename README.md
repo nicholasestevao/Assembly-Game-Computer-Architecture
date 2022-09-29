@@ -2,6 +2,10 @@
 
 ## Grupo
 
+ * Guilherme Chiarotto de Moraes 12745229
+ * Hugo Hiroyuki Nakamura 12732037
+ * Isaac Santos Soares 12175173
+ * Nicholas Estevão Pereira de Oliveira Rodrigues Bragança 12689616
 
 ---
 
@@ -37,28 +41,25 @@ TeclaDigitada: var #1
 
 main:
 	Seta parâmetros e variáveis…
-ImprimeTelaOpcoes
-LoopMenu
+	ImprimeTelaOpcoes
+	LoopMenu
 
 LoopMenu:
-	TeclaDigitada = INCHAR
-	if(TeclaDigitada == 255) //digitou nao digitou nada
+	EntradaTeclado
+	
+	if (Opcao == tutorial)
+		ImprimeTelaTutorial
 		LoopMenu
-if (Opcao == tutorial)
-	ImprimeTelaTutorial
-	LoopMenu
-if (Opcao == iniciar)
-	LerNomeRestaunte
-	GerarComandas
-ImprimeTelaJogo
-	LoopJogo
-if (Opcao == sair)
-	FechaJogo
+	if (Opcao == iniciar)
+		LerNomeRestaunte
+		GerarComandas
+		ImprimeTelaJogo
+		LoopJogo
+	if (Opcao == sair)
+		FechaJogo
 
 LoopJogo:
-	TeclaDigitada = INCHAR
-	if(TeclaDigitada == 255) //digitou nao digitou nada
-		LoopJogo
+	EntradaTeclado
 	
 	if(TeclaDigitada == esquerda)
 		moveEsquerda
@@ -82,9 +83,16 @@ LerNomeRestaurante:
 	– Imprime tela ler nome do restaurante
 	(Ler String jogo da Forca …)
 
+EntradaTeclado:
+	TeclaDigitada = 255
+	LoopTeclado:
+		TeclaDigitada = INCHAR
+		if(TeclaDigitada == 255) //digitou nao digitou nada
+			LoopTeclado
+
 ImprimeTelaJogo: 
-AtualizaComanda	
-ImprimeComanda
+	AtualizaComanda	
+	ImprimeComanda
 	ImprimeBancada
 	ResetaPrato
 	
@@ -118,3 +126,6 @@ FimDoJogo:
     - [ ] Comandas
   - [ ] Ingredientes
   - [ ] Personagem
+  - [ ] Telas
+    - [ ] Menu Principal
+    - [ ] Tutorial
