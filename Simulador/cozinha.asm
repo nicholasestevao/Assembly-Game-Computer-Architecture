@@ -201,7 +201,7 @@ GerarComanda:
 	push r2		; 
 	push r3		; 
 	push r4		; 
-	push r5	
+	push r5		;
 
 	;load r3, ComandaAtual ; garante que proxima comanda sera diferente da anterior
 	;load r2, NomeRestaurante ; Pega valor ascii do primeiro caractere do restaurante
