@@ -93,6 +93,7 @@ jmp main
 NomeRestaurante: string "Burger King"
 ComandaAtual: var #1
 	static ComandaAtual, #0 ;inicializa comanda com 0
+TextoComandaAtual: var #1
 Comandas: var #5 ; ATENCAO! Essa variavel nao foi implementada ainda (usar apenas a comanda autal e o IndiceComandaAtual)
 IndiceComandaAtual: var #1
 NumeroAleatorio: var #1
@@ -111,9 +112,9 @@ Receita2: var #1
 	
 ;	Hamburger com mostarda
 ;	(tomate, alface, carne, mostarda)
-;	11010100 => 212
+;	11010001 => 209
 Receita3: var #1 ; Variavel que guarda o codigo binario da receita 3
-	static Receita3, #212
+	static Receita3, #209
 	
 ;	Hamburger com ovo
 ;	(tomate, alface, carne, ovo)
@@ -161,12 +162,24 @@ NomeReceita6: string "Cheeseburger" 			; Variavel que guarda o nome da receita 6
 NomeReceita7: string "Cheeseburger com maionese"; Variavel que guarda o nome da receita 7
 NomeReceita8: string "Cheeseburger com ovo" 	; Variavel que guarda o nome da receita 8
 NomeReceita9: string "Cheeseburger vegetariano" ; Variavel que guarda o nome da receita 9
+Espaco: string 		 "                         "
+
+StringMostarda: string "Mostarda"
+StringKetchup: string "Ketchup"
+StringMaionese: string "Maionese"
+StringOvo: string "Ovo"
+StringCarne: string "Carne"
+StringQueijo: string "Queijo"
+StringAlface: string "Alface"
+StringTomate: string "Tomate"
 
 
 main:
 	call GerarNumeroAleatorio
 	
 	call GerarComanda
+	load r0, ComandaAtual
+	call ImprimeTelaJogo
 	halt
 	rts
 
@@ -269,6 +282,8 @@ ComandaAtual_Recebe_Receita_1:
 	push r0
 		load r0, Receita1
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita1
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 	
@@ -276,6 +291,8 @@ ComandaAtual_Recebe_Receita_2:
 	push r0
 		load r0, Receita2
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita2
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 
@@ -283,6 +300,8 @@ ComandaAtual_Recebe_Receita_3:
 	push r0
 		load r0, Receita3
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita3
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 	
@@ -290,6 +309,8 @@ ComandaAtual_Recebe_Receita_4:
 	push r0
 		load r0, Receita4
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita4
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 	
@@ -297,6 +318,8 @@ ComandaAtual_Recebe_Receita_5:
 	push r0
 		load r0, Receita5
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita5
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 	
@@ -304,6 +327,8 @@ ComandaAtual_Recebe_Receita_6:
 	push r0
 		load r0, Receita6
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita6
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 
@@ -311,6 +336,8 @@ ComandaAtual_Recebe_Receita_7:
 	push r0
 		load r0, Receita7
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita7
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 	
@@ -318,6 +345,8 @@ ComandaAtual_Recebe_Receita_8:
 	push r0
 		load r0, Receita8
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita8
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 
@@ -325,6 +354,397 @@ ComandaAtual_Recebe_Receita_9:
 	push r0
 		load r0, Receita9
 		store ComandaAtual, r0
+		loadn r0, #NomeReceita9
+		store TextoComandaAtual, r0
 	pop r0
 	rts
 	
+ImprimeTelaJogo:
+	
+	call printTextoComandaAtual
+	call printIngredientes
+	rts
+	
+	
+	
+printIngredientes:
+	push r0		; 
+	push r1		; 
+	push r2		; 
+	push r3		; 
+	push r4		; 
+	push r5		;
+	push fr
+	
+	; bit 0 - tomate
+; bit 1 - alface
+; bit 2 - queijo
+; bit 3 - carne
+; bit 4 - ovo
+; bit 5 - maionese
+; bit 6 - ketchup
+; bit 7 - mostarda
+	load r0, ComandaAtual
+	loadn r5, #40
+	
+	loadn r1, #1
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente1
+	
+	loadn r1, #2
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente2
+	
+	loadn r1, #4
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente3
+	
+	loadn r1, #8
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente4
+	
+	loadn r1, #16
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente5
+	
+	loadn r1, #32
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente6
+	
+	loadn r1, #64
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente7
+	
+	loadn r1, #128
+	and r2, r0, r1
+	cmp r2, r1
+	ceq imprimeIngrediente8
+	
+	call limpaIngredientes
+	
+	pop fr
+	pop r5
+	pop r4
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	
+	rts	
+	
+limpaIngredientes:
+	push fr		; Protege o registrador de flags
+	push r0	; protege o r0 na pilha para preservar seu valor
+	push r1	; protege o r1 na pilha para preservar seu valor
+	push r2	; protege o r1 na pilha para preservar seu valor
+	push r3	; protege o r3 na pilha para ser usado na subrotina
+	push r4	; protege o r4 na pilha para ser usado na subrotina
+	
+	loadn r3, #280	; Criterio de parada
+	loadn r4, #40
+	
+  	Limpa_Loop:	
+		cmp r3, r5
+		jeq Limpa_sai
+		mov r0, r5	; Posicao na tela onde a mensagem sera' escrita
+		loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+		loadn r2, #0		; Seleciona a COR da Mensagem
+		call ImprimeStr
+		add r5, r5, r4
+		jmp Limpa_Loop
+	
+   Limpa_sai:	
+	pop r4	; Resgata os valores dos registradores utilizados na Subrotina da Pilha
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	pop fr
+	
+	rts
+	
+imprimeIngrediente1:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5  ;posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringMostarda	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+
+imprimeIngrediente2:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5 	; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringKetchup	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+	
+imprimeIngrediente3:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5 		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringMaionese	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+
+imprimeIngrediente4:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5 		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringOvo	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+	
+imprimeIngrediente5:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5 		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringCarne	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+	
+imprimeIngrediente6:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringQueijo ; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+	
+imprimeIngrediente7:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringAlface	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+	
+imprimeIngrediente8:
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr
+	
+	mov r0, r5		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #StringTomate	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #40
+	add r5, r5, r0
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+
+
+;********************************************************
+;                   IMPRIME A PALAVRA DIGITADA
+;********************************************************
+	
+printTextoComandaAtual:	; Seleciona uma mensagem para imprimir - Digite uma palavra!!
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	loadn r0, #0		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #0		; Posicao na tela onde a mensagem sera' escrita
+	load r1, TextoComandaAtual	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+	
+;---------------------------	
+;********************************************************
+;                   IMPRIME STRING
+;********************************************************
+	
+ImprimeStr:	;  Rotina de Impresao de Mensagens:    r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	push fr		; Protege o registrador de flags
+	push r0	; protege o r0 na pilha para preservar seu valor
+	push r1	; protege o r1 na pilha para preservar seu valor
+	push r2	; protege o r1 na pilha para preservar seu valor
+	push r3	; protege o r3 na pilha para ser usado na subrotina
+	push r4	; protege o r4 na pilha para ser usado na subrotina
+	
+	loadn r3, #'\0'	; Criterio de parada
+
+   ImprimeStr_Loop:	
+		loadi r4, r1
+		cmp r4, r3
+		jeq ImprimeStr_Sai
+		add r4, r2, r4
+		outchar r4, r0
+		inc r0
+		inc r1
+		jmp ImprimeStr_Loop
+	
+   ImprimeStr_Sai:	
+	pop r4	; Resgata os valores dos registradores utilizados na Subrotina da Pilha
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	pop fr
+	rts
