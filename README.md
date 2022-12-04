@@ -111,7 +111,7 @@ FimDoJogo:
 
 - [ ] Funções
   - [ ] main
-  - [ ] Loop Menu &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; **_(Isaac)_**
+  - [x] Loop Menu &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; **_(Isaac)_**
   - [ ] LoopJogo &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;**_(Hugo)_**
   - [ ] EstaSobreCampainha &emsp;&emsp;**_(Isaac e Guilherme)_**
   - [ ] AtualizaPontos &emsp;&emsp;&emsp; &emsp; **_(Isaac e Guilherme)_**

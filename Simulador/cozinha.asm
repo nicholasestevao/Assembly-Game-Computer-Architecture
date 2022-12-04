@@ -28,7 +28,7 @@
 ;if (Opcao == iniciar)
 ;	LerNomeRestaunte
 ;	GerarComandas
-;ImprimeTelaJogo
+;   ImprimeTelaJogo
 ;	LoopJogo
 ;if (Opcao == sair)
 ;	FechaJogo
@@ -97,7 +97,7 @@ TextoComandaAtual: var #1
 Comandas: var #5 ; ATENCAO! Essa variavel nao foi implementada ainda (usar apenas a comanda autal e o IndiceComandaAtual)
 IndiceComandaAtual: var #1
 NumeroAleatorio: var #1
-
+	
 ;	Hamburger (sem molho)
 ;	(tomate, alface, carne)
 ;	11010000 => 208
@@ -175,14 +175,52 @@ StringTomate: string "Tomate"
 
 
 main:
-	call GerarNumeroAleatorio
+	call Menu
 	
-	call GerarComanda
-	load r0, ComandaAtual
-	call ImprimeTelaJogo
 	halt
 	rts
 
+Menu:
+	push r0
+	push r1
+		LoopMenu:
+			inchar r0
+			loadn r1, #48 
+			cmp r0, r1
+			ceq Tutorial ; digitou 0 pula pra Tutorial
+			loadn r1, #49  
+			cmp r0, r1
+			jeq IniciaJogo ; digitou 1 pula IniciaJogo
+			loadn r1, #27 
+			cmp r0, r1 ; digitou esc pula para SairMenu
+			jeq SairMenu
+			jne LoopMenu ; se nao for nenhuma das opcoes pula para LoopMenu 
+			
+		IniciaJogo:
+			pop r1
+			pop r0	
+			call GerarNumeroAleatorio
+			load r0, ComandaAtual
+			call GerarComanda
+			;--ImprimeTelaJogo--;	
+			;--IniciaJogo--;
+			jmp Menu
+			
+	SairMenu:		
+	pop r1
+	pop r0
+	rts
+
+
+Tutorial:
+	;--ImprimeTelaTutorial--;
+	LoopTutorial:
+		inchar r0
+		loadn r1, #27 
+		cmp r0, r1
+		jne LoopTutorial 
+	rts
+	
 
 GerarNumeroAleatorio:
 	push r0
