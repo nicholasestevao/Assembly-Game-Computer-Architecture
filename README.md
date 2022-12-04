@@ -118,7 +118,7 @@ FimDoJogo:
   - [ ] LerNomeRestaurante
   - [ ] EntradaTeclado
   - [ ] ImprimeTelaJogo
-  - [ ] GerarComandas &emsp;&emsp;&emsp;&emsp;**_(Nicholas)_**
+  - [x] GerarComandas &emsp;&emsp;&emsp;&emsp;**_(Nicholas)_**
   - [ ] FimDoJogo &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;**_(Isaac e Guilherme)_**
  
 - [ ] Sprites
