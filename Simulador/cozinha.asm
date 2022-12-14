@@ -187,7 +187,9 @@ Menu:
 	push r1 ; tecla a ser testada
 	push r2 ; numero aleatorio
 		LoopMenu:
-			inchar r0
+			;inchar r0
+			call GerarNumeroAleatorio
+			;store NumeroAleatorio, r0
 			loadn r1, #50 
 			cmp r0, r1
 			inc r2
@@ -203,14 +205,15 @@ Menu:
 			jne LoopMenu ; se nao for nenhuma das opcoes pula para LoopMenu 
 			
 		IniciaJogo:
-			store NumeroAleatorio, r2
+			;store NumeroAleatorio, r0
 			pop r2
 			pop r1
-			pop r0	
-			load r0, ComandaAtual
-			;--ImprimeTelaJogo--;
-			call print_telaScreen
+			pop r0
+			;call GerarNumeroAleatorio
 			call GerarComanda
+			load r0, ComandaAtual			
+			call print_telaScreen			
+			call ImprimeTelaJogo
 			breakp	
 			;--IniciaJogo--;
 			jmp Menu
@@ -230,33 +233,34 @@ Tutorial:
 		loadn r1, #48 ; digitou 0 volta para Menu
 		cmp r0, r1
 		inc r2
-		jne LoopTutorial 
+		jne LoopTutorial
+		jeq Menu
 	rts
 	
 
-;GerarNumeroAleatorio:
-;	push r0
-;	push r1
-;	push r2
-;		inchar r0
-;		loadn r1, #255
-;		cmp r0, r1
-;		call LoopGerarNumeroAleatorio
-;		breakp
-;		store NumeroAleatorio, r2
-;		
-;	pop r2
-;	pop r1
-;	pop r0
-;	rts
-;	
-;LoopGerarNumeroAleatorio:
-;	inchar r0
-;	loadn r1, #255
-;	cmp r0, r1
-;	inc r2
-;	jeq LoopGerarNumeroAleatorio
-;	rts 
+GerarNumeroAleatorio:
+	;push r0
+	push r1
+	push r2
+		inchar r0
+		loadn r1, #255
+		cmp r0, r1
+		call LoopGerarNumeroAleatorio
+		;breakp
+		store NumeroAleatorio, r2
+		
+	pop r2
+	pop r1
+	;pop r0
+	rts
+	
+LoopGerarNumeroAleatorio:
+	inchar r0
+	loadn r1, #255
+	cmp r0, r1
+	inc r2
+	jeq LoopGerarNumeroAleatorio
+	rts 
 
 GerarComanda:
 	push r0		; 
@@ -434,8 +438,10 @@ printIngredientes:
 ; bit 5 - maionese
 ; bit 6 - ketchup
 ; bit 7 - mostarda
+	call limpaIngredientes
+
 	load r0, ComandaAtual
-	loadn r5, #40
+	loadn r5, #82
 	
 	loadn r1, #1
 	and r2, r0, r1
@@ -477,7 +483,7 @@ printIngredientes:
 	cmp r2, r1
 	ceq imprimeIngrediente8
 	
-	call limpaIngredientes
+	
 	
 	pop fr
 	pop r5
@@ -496,10 +502,13 @@ limpaIngredientes:
 	push r2	; protege o r1 na pilha para preservar seu valor
 	push r3	; protege o r3 na pilha para ser usado na subrotina
 	push r4	; protege o r4 na pilha para ser usado na subrotina
+	push r5	; protege o r4 na pilha para ser usado na subrotina
+	push r6	; protege o r4 na pilha para ser usado na subrotina
 	
-	loadn r3, #280	; Criterio de parada
+	loadn r3, #282	; Criterio de parada
 	loadn r4, #40
-	
+	loadn r5, #82
+	loadn r6, #40
   	Limpa_Loop:	
 		cmp r3, r5
 		jeq Limpa_sai
@@ -510,7 +519,9 @@ limpaIngredientes:
 		add r5, r5, r4
 		jmp Limpa_Loop
 	
-   Limpa_sai:	
+   Limpa_sai:
+    pop r6;	
+   	pop r5;
 	pop r4	; Resgata os valores dos registradores utilizados na Subrotina da Pilha
 	pop r3
 	pop r2
@@ -747,13 +758,13 @@ printTextoComandaAtual:	; Seleciona uma mensagem para imprimir - Digite uma pala
 	push r1
 	push r2
 	
-	loadn r0, #0		; Posicao na tela onde a mensagem sera' escrita
+	loadn r0, #42		; Posicao na tela onde a mensagem sera' escrita
 	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
 	loadn r2, #0		; Seleciona a COR da Mensagem
 	
 	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
 	
-	loadn r0, #0		; Posicao na tela onde a mensagem sera' escrita
+	loadn r0, #42		; Posicao na tela onde a mensagem sera' escrita
 	load r1, TextoComandaAtual	; Carrega r1 com o endereco do vetor que contem a mensagem
 	loadn r2, #0		; Seleciona a COR da Mensagem
 	
