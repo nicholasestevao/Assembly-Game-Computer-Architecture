@@ -19,15 +19,15 @@ tela : var #1200
   static tela + #16, #6
   static tela + #17, #6
   static tela + #18, #6
-  static tela + #19, #10
-  static tela + #20, #3967
-  static tela + #21, #3967
-  static tela + #22, #3967
-  static tela + #23, #3967
-  static tela + #24, #3967
-  static tela + #25, #3967
-  static tela + #26, #3967
-  static tela + #27, #3967
+  static tela + #19, #6
+  static tela + #20, #6
+  static tela + #21, #6
+  static tela + #22, #6
+  static tela + #23, #6
+  static tela + #24, #6
+  static tela + #25, #6
+  static tela + #26, #6
+  static tela + #27, #5
   static tela + #28, #83
   static tela + #29, #67
   static tela + #30, #79
@@ -61,7 +61,7 @@ tela : var #1200
   static tela + #56, #3967
   static tela + #57, #3967
   static tela + #58, #3967
-  static tela + #59, #8
+  static tela + #59, #3967
   static tela + #60, #3967
   static tela + #61, #3967
   static tela + #62, #3967
@@ -69,7 +69,7 @@ tela : var #1200
   static tela + #64, #3967
   static tela + #65, #3967
   static tela + #66, #3967
-  static tela + #67, #3967
+  static tela + #67, #5
   static tela + #68, #3967
   static tela + #69, #3967
   static tela + #70, #3967
@@ -103,7 +103,7 @@ tela : var #1200
   static tela + #96, #3967
   static tela + #97, #3967
   static tela + #98, #3967
-  static tela + #99, #8
+  static tela + #99, #3967
   static tela + #100, #3967
   static tela + #101, #3967
   static tela + #102, #3967
@@ -111,7 +111,7 @@ tela : var #1200
   static tela + #104, #3967
   static tela + #105, #3967
   static tela + #106, #3967
-  static tela + #107, #3967
+  static tela + #107, #5
   static tela + #108, #3967
   static tela + #109, #3967
   static tela + #110, #3967
@@ -145,7 +145,7 @@ tela : var #1200
   static tela + #136, #3967
   static tela + #137, #3967
   static tela + #138, #3967
-  static tela + #139, #8
+  static tela + #139, #3967
   static tela + #140, #3967
   static tela + #141, #3967
   static tela + #142, #3967
@@ -153,7 +153,7 @@ tela : var #1200
   static tela + #144, #3967
   static tela + #145, #3967
   static tela + #146, #3967
-  static tela + #147, #3967
+  static tela + #147, #5
   static tela + #148, #3967
   static tela + #149, #3967
   static tela + #150, #3967
@@ -187,7 +187,7 @@ tela : var #1200
   static tela + #176, #3967
   static tela + #177, #3967
   static tela + #178, #3967
-  static tela + #179, #8
+  static tela + #179, #3967
   static tela + #180, #3967
   static tela + #181, #3967
   static tela + #182, #3967
@@ -195,7 +195,7 @@ tela : var #1200
   static tela + #184, #3967
   static tela + #185, #3967
   static tela + #186, #3967
-  static tela + #187, #3967
+  static tela + #187, #5
   static tela + #188, #3967
   static tela + #189, #3967
   static tela + #190, #3967
@@ -210,26 +210,26 @@ tela : var #1200
   static tela + #199, #3967
 
   ;Linha 5
-  static tela + #200, #12
-  static tela + #201, #7
-  static tela + #202, #7
-  static tela + #203, #7
-  static tela + #204, #7
-  static tela + #205, #7
-  static tela + #206, #7
-  static tela + #207, #7
-  static tela + #208, #7
-  static tela + #209, #7
-  static tela + #210, #7
-  static tela + #211, #7
-  static tela + #212, #7
-  static tela + #213, #7
-  static tela + #214, #7
-  static tela + #215, #7
-  static tela + #216, #7
-  static tela + #217, #7
-  static tela + #218, #7
-  static tela + #219, #11
+  static tela + #200, #5
+  static tela + #201, #3967
+  static tela + #202, #3967
+  static tela + #203, #3967
+  static tela + #204, #3967
+  static tela + #205, #3967
+  static tela + #206, #3967
+  static tela + #207, #3967
+  static tela + #208, #3967
+  static tela + #209, #3967
+  static tela + #210, #3967
+  static tela + #211, #3967
+  static tela + #212, #3967
+  static tela + #213, #3967
+  static tela + #214, #3967
+  static tela + #215, #3967
+  static tela + #216, #3967
+  static tela + #217, #3967
+  static tela + #218, #3967
+  static tela + #219, #3967
   static tela + #220, #3967
   static tela + #221, #3967
   static tela + #222, #3967
@@ -237,7 +237,7 @@ tela : var #1200
   static tela + #224, #3967
   static tela + #225, #3967
   static tela + #226, #3967
-  static tela + #227, #3967
+  static tela + #227, #5
   static tela + #228, #3967
   static tela + #229, #3967
   static tela + #230, #3967
@@ -252,7 +252,7 @@ tela : var #1200
   static tela + #239, #3967
 
   ;Linha 6
-  static tela + #240, #3967
+  static tela + #240, #5
   static tela + #241, #3967
   static tela + #242, #3967
   static tela + #243, #3967
@@ -279,7 +279,7 @@ tela : var #1200
   static tela + #264, #3967
   static tela + #265, #3967
   static tela + #266, #3967
-  static tela + #267, #3967
+  static tela + #267, #5
   static tela + #268, #3967
   static tela + #269, #3967
   static tela + #270, #3967
@@ -294,34 +294,34 @@ tela : var #1200
   static tela + #279, #3967
 
   ;Linha 7
-  static tela + #280, #3967
-  static tela + #281, #3967
-  static tela + #282, #3967
-  static tela + #283, #3967
-  static tela + #284, #3967
-  static tela + #285, #3967
-  static tela + #286, #3967
-  static tela + #287, #3967
-  static tela + #288, #3967
-  static tela + #289, #3967
-  static tela + #290, #3967
-  static tela + #291, #3967
-  static tela + #292, #3967
-  static tela + #293, #3967
-  static tela + #294, #3967
-  static tela + #295, #3967
-  static tela + #296, #3967
-  static tela + #297, #3967
-  static tela + #298, #3967
-  static tela + #299, #3967
-  static tela + #300, #3967
-  static tela + #301, #3967
-  static tela + #302, #3967
-  static tela + #303, #3967
-  static tela + #304, #3967
-  static tela + #305, #3967
-  static tela + #306, #3967
-  static tela + #307, #3967
+  static tela + #280, #12
+  static tela + #281, #7
+  static tela + #282, #7
+  static tela + #283, #7
+  static tela + #284, #7
+  static tela + #285, #7
+  static tela + #286, #7
+  static tela + #287, #7
+  static tela + #288, #7
+  static tela + #289, #7
+  static tela + #290, #7
+  static tela + #291, #7
+  static tela + #292, #7
+  static tela + #293, #7
+  static tela + #294, #7
+  static tela + #295, #7
+  static tela + #296, #7
+  static tela + #297, #7
+  static tela + #298, #7
+  static tela + #299, #7
+  static tela + #300, #7
+  static tela + #301, #7
+  static tela + #302, #7
+  static tela + #303, #7
+  static tela + #304, #7
+  static tela + #305, #7
+  static tela + #306, #7
+  static tela + #307, #5
   static tela + #308, #3967
   static tela + #309, #3967
   static tela + #310, #3967

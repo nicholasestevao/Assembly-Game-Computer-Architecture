@@ -758,13 +758,13 @@ printTextoComandaAtual:	; Seleciona uma mensagem para imprimir - Digite uma pala
 	push r1
 	push r2
 	
-	loadn r0, #42		; Posicao na tela onde a mensagem sera' escrita
+	loadn r0, #41		; Posicao na tela onde a mensagem sera' escrita
 	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
 	loadn r2, #0		; Seleciona a COR da Mensagem
 	
 	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
 	
-	loadn r0, #42		; Posicao na tela onde a mensagem sera' escrita
+	loadn r0, #41		; Posicao na tela onde a mensagem sera' escrita
 	load r1, TextoComandaAtual	; Carrega r1 com o endereco do vetor que contem a mensagem
 	loadn r2, #0		; Seleciona a COR da Mensagem
 	
@@ -2097,7 +2097,7 @@ print_menu_chapeu_Screen:
   pop R0
   rts
   
-  tutorial : var #1200
+tutorial : var #1200
   ;Linha 0
   static tutorial + #0, #9
   static tutorial + #1, #6
@@ -2118,15 +2118,15 @@ print_menu_chapeu_Screen:
   static tutorial + #16, #6
   static tutorial + #17, #6
   static tutorial + #18, #6
-  static tutorial + #19, #10
-  static tutorial + #20, #3967
-  static tutorial + #21, #3967
-  static tutorial + #22, #3967
-  static tutorial + #23, #3967
-  static tutorial + #24, #3967
-  static tutorial + #25, #3967
-  static tutorial + #26, #3967
-  static tutorial + #27, #3967
+  static tutorial + #19, #6
+  static tutorial + #20, #6
+  static tutorial + #21, #6
+  static tutorial + #22, #6
+  static tutorial + #23, #6
+  static tutorial + #24, #6
+  static tutorial + #25, #6
+  static tutorial + #26, #6
+  static tutorial + #27, #5
   static tutorial + #28, #83
   static tutorial + #29, #67
   static tutorial + #30, #79
@@ -2160,7 +2160,7 @@ print_menu_chapeu_Screen:
   static tutorial + #56, #3967
   static tutorial + #57, #3967
   static tutorial + #58, #3967
-  static tutorial + #59, #8
+  static tutorial + #59, #3967
   static tutorial + #60, #3967
   static tutorial + #61, #3967
   static tutorial + #62, #3967
@@ -2168,15 +2168,15 @@ print_menu_chapeu_Screen:
   static tutorial + #64, #3967
   static tutorial + #65, #3967
   static tutorial + #66, #3967
-  static tutorial + #67, #3967
+  static tutorial + #67, #5
   static tutorial + #68, #3967
   static tutorial + #69, #3967
   static tutorial + #70, #3967
   static tutorial + #71, #3967
   static tutorial + #72, #3967
-  static tutorial + #73, #30
+  static tutorial + #73, #3967
   static tutorial + #74, #3967
-  static tutorial + #75, #3967
+  static tutorial + #75, #25
   static tutorial + #76, #3967
   static tutorial + #77, #3967
   static tutorial + #78, #3967
@@ -2185,24 +2185,24 @@ print_menu_chapeu_Screen:
   ;Linha 2
   static tutorial + #80, #5
   static tutorial + #81, #3967
-  static tutorial + #82, #67
-  static tutorial + #83, #111
-  static tutorial + #84, #109
-  static tutorial + #85, #97
-  static tutorial + #86, #110
-  static tutorial + #87, #100
-  static tutorial + #88, #97
+  static tutorial + #82, #3967
+  static tutorial + #83, #3967
+  static tutorial + #84, #3967
+  static tutorial + #85, #3967
+  static tutorial + #86, #3967
+  static tutorial + #87, #3967
+  static tutorial + #88, #3967
   static tutorial + #89, #3967
-  static tutorial + #90, #100
-  static tutorial + #91, #111
+  static tutorial + #90, #3967
+  static tutorial + #91, #3967
   static tutorial + #92, #3967
-  static tutorial + #93, #80
-  static tutorial + #94, #101
-  static tutorial + #95, #100
-  static tutorial + #96, #105
-  static tutorial + #97, #100
-  static tutorial + #98, #111
-  static tutorial + #99, #8
+  static tutorial + #93, #3967
+  static tutorial + #94, #3967
+  static tutorial + #95, #3967
+  static tutorial + #96, #3967
+  static tutorial + #97, #3967
+  static tutorial + #98, #3967
+  static tutorial + #99, #3967
   static tutorial + #100, #3967
   static tutorial + #101, #3967
   static tutorial + #102, #3967
@@ -2210,15 +2210,15 @@ print_menu_chapeu_Screen:
   static tutorial + #104, #3967
   static tutorial + #105, #3967
   static tutorial + #106, #3967
-  static tutorial + #107, #3967
+  static tutorial + #107, #5
   static tutorial + #108, #3967
   static tutorial + #109, #3967
   static tutorial + #110, #3967
   static tutorial + #111, #3967
-  static tutorial + #112, #21
+  static tutorial + #112, #3967
   static tutorial + #113, #3967
   static tutorial + #114, #3967
-  static tutorial + #115, #3967
+  static tutorial + #115, #20
   static tutorial + #116, #3967
   static tutorial + #117, #3967
   static tutorial + #118, #3967
@@ -2235,34 +2235,34 @@ print_menu_chapeu_Screen:
   static tutorial + #127, #3967
   static tutorial + #128, #3967
   static tutorial + #129, #3967
-  static tutorial + #130, #3967
-  static tutorial + #131, #3967
-  static tutorial + #132, #3967
-  static tutorial + #133, #3967
-  static tutorial + #134, #3967
-  static tutorial + #135, #3967
-  static tutorial + #136, #3967
+  static tutorial + #130, #67
+  static tutorial + #131, #111
+  static tutorial + #132, #109
+  static tutorial + #133, #97
+  static tutorial + #134, #110
+  static tutorial + #135, #100
+  static tutorial + #136, #97
   static tutorial + #137, #3967
   static tutorial + #138, #3967
-  static tutorial + #139, #8
+  static tutorial + #139, #3967
   static tutorial + #140, #3967
   static tutorial + #141, #3967
   static tutorial + #142, #3967
   static tutorial + #143, #3967
   static tutorial + #144, #3967
-  static tutorial + #145, #83
-  static tutorial + #146, #117
-  static tutorial + #147, #97
+  static tutorial + #145, #3967
+  static tutorial + #146, #3967
+  static tutorial + #147, #5
   static tutorial + #148, #3967
-  static tutorial + #149, #80
-  static tutorial + #150, #111
-  static tutorial + #151, #110
-  static tutorial + #152, #116
-  static tutorial + #153, #117
-  static tutorial + #154, #97
-  static tutorial + #155, #99
+  static tutorial + #149, #3967
+  static tutorial + #150, #3967
+  static tutorial + #151, #3967
+  static tutorial + #152, #3967
+  static tutorial + #153, #3967
+  static tutorial + #154, #83
+  static tutorial + #155, #117
   static tutorial + #156, #97
-  static tutorial + #157, #111
+  static tutorial + #157, #3967
   static tutorial + #158, #3967
   static tutorial + #159, #3967
 
@@ -2279,14 +2279,14 @@ print_menu_chapeu_Screen:
   static tutorial + #169, #3967
   static tutorial + #170, #3967
   static tutorial + #171, #3967
-  static tutorial + #172, #3967
-  static tutorial + #173, #3967
+  static tutorial + #172, #100
+  static tutorial + #173, #111
   static tutorial + #174, #3967
   static tutorial + #175, #3967
   static tutorial + #176, #3967
   static tutorial + #177, #3967
   static tutorial + #178, #3967
-  static tutorial + #179, #8
+  static tutorial + #179, #3967
   static tutorial + #180, #3967
   static tutorial + #181, #3967
   static tutorial + #182, #3967
@@ -2294,41 +2294,41 @@ print_menu_chapeu_Screen:
   static tutorial + #184, #3967
   static tutorial + #185, #3967
   static tutorial + #186, #3967
-  static tutorial + #187, #3967
+  static tutorial + #187, #5
   static tutorial + #188, #3967
   static tutorial + #189, #3967
   static tutorial + #190, #3967
-  static tutorial + #191, #3967
-  static tutorial + #192, #3967
-  static tutorial + #193, #3967
-  static tutorial + #194, #3967
-  static tutorial + #195, #3967
-  static tutorial + #196, #3967
-  static tutorial + #197, #3967
-  static tutorial + #198, #3967
-  static tutorial + #199, #3967
+  static tutorial + #191, #80
+  static tutorial + #192, #111
+  static tutorial + #193, #110
+  static tutorial + #194, #116
+  static tutorial + #195, #117
+  static tutorial + #196, #97
+  static tutorial + #197, #99
+  static tutorial + #198, #97
+  static tutorial + #199, #111
 
   ;Linha 5
-  static tutorial + #200, #12
-  static tutorial + #201, #7
-  static tutorial + #202, #7
-  static tutorial + #203, #7
-  static tutorial + #204, #7
-  static tutorial + #205, #7
-  static tutorial + #206, #7
-  static tutorial + #207, #7
-  static tutorial + #208, #7
-  static tutorial + #209, #7
-  static tutorial + #210, #7
-  static tutorial + #211, #7
-  static tutorial + #212, #7
-  static tutorial + #213, #7
-  static tutorial + #214, #7
-  static tutorial + #215, #7
-  static tutorial + #216, #7
-  static tutorial + #217, #7
-  static tutorial + #218, #7
-  static tutorial + #219, #11
+  static tutorial + #200, #5
+  static tutorial + #201, #3967
+  static tutorial + #202, #3967
+  static tutorial + #203, #3967
+  static tutorial + #204, #3967
+  static tutorial + #205, #3967
+  static tutorial + #206, #3967
+  static tutorial + #207, #80
+  static tutorial + #208, #101
+  static tutorial + #209, #100
+  static tutorial + #210, #105
+  static tutorial + #211, #100
+  static tutorial + #212, #111
+  static tutorial + #213, #3967
+  static tutorial + #214, #65
+  static tutorial + #215, #116
+  static tutorial + #216, #117
+  static tutorial + #217, #97
+  static tutorial + #218, #108
+  static tutorial + #219, #3967
   static tutorial + #220, #3967
   static tutorial + #221, #3967
   static tutorial + #222, #3967
@@ -2336,7 +2336,7 @@ print_menu_chapeu_Screen:
   static tutorial + #224, #3967
   static tutorial + #225, #3967
   static tutorial + #226, #3967
-  static tutorial + #227, #3967
+  static tutorial + #227, #5
   static tutorial + #228, #3967
   static tutorial + #229, #3967
   static tutorial + #230, #3967
@@ -2351,7 +2351,7 @@ print_menu_chapeu_Screen:
   static tutorial + #239, #3967
 
   ;Linha 6
-  static tutorial + #240, #3967
+  static tutorial + #240, #5
   static tutorial + #241, #3967
   static tutorial + #242, #3967
   static tutorial + #243, #3967
@@ -2378,7 +2378,7 @@ print_menu_chapeu_Screen:
   static tutorial + #264, #3967
   static tutorial + #265, #3967
   static tutorial + #266, #3967
-  static tutorial + #267, #3967
+  static tutorial + #267, #5
   static tutorial + #268, #3967
   static tutorial + #269, #3967
   static tutorial + #270, #3967
@@ -2393,34 +2393,34 @@ print_menu_chapeu_Screen:
   static tutorial + #279, #3967
 
   ;Linha 7
-  static tutorial + #280, #3967
-  static tutorial + #281, #3967
-  static tutorial + #282, #3967
-  static tutorial + #283, #3967
-  static tutorial + #284, #3967
-  static tutorial + #285, #3967
-  static tutorial + #286, #3967
-  static tutorial + #287, #3967
-  static tutorial + #288, #3967
-  static tutorial + #289, #3967
-  static tutorial + #290, #3967
-  static tutorial + #291, #3967
-  static tutorial + #292, #3967
-  static tutorial + #293, #3967
-  static tutorial + #294, #3967
-  static tutorial + #295, #3967
-  static tutorial + #296, #3967
-  static tutorial + #297, #3967
-  static tutorial + #298, #3967
-  static tutorial + #299, #3967
-  static tutorial + #300, #3967
-  static tutorial + #301, #3967
-  static tutorial + #302, #3967
-  static tutorial + #303, #3967
-  static tutorial + #304, #3967
-  static tutorial + #305, #3967
-  static tutorial + #306, #3967
-  static tutorial + #307, #3967
+  static tutorial + #280, #12
+  static tutorial + #281, #7
+  static tutorial + #282, #7
+  static tutorial + #283, #7
+  static tutorial + #284, #7
+  static tutorial + #285, #7
+  static tutorial + #286, #7
+  static tutorial + #287, #7
+  static tutorial + #288, #7
+  static tutorial + #289, #7
+  static tutorial + #290, #7
+  static tutorial + #291, #7
+  static tutorial + #292, #7
+  static tutorial + #293, #7
+  static tutorial + #294, #7
+  static tutorial + #295, #7
+  static tutorial + #296, #7
+  static tutorial + #297, #7
+  static tutorial + #298, #7
+  static tutorial + #299, #7
+  static tutorial + #300, #7
+  static tutorial + #301, #7
+  static tutorial + #302, #7
+  static tutorial + #303, #7
+  static tutorial + #304, #7
+  static tutorial + #305, #7
+  static tutorial + #306, #7
+  static tutorial + #307, #5
   static tutorial + #308, #3967
   static tutorial + #309, #3967
   static tutorial + #310, #3967
@@ -2451,13 +2451,13 @@ print_menu_chapeu_Screen:
   static tutorial + #333, #3967
   static tutorial + #334, #3967
   static tutorial + #335, #3967
-  static tutorial + #336, #84
-  static tutorial + #337, #69
-  static tutorial + #338, #67
-  static tutorial + #339, #76
-  static tutorial + #340, #65
-  static tutorial + #341, #83
-  static tutorial + #342, #58
+  static tutorial + #336, #3967
+  static tutorial + #337, #3967
+  static tutorial + #338, #3967
+  static tutorial + #339, #3967
+  static tutorial + #340, #3967
+  static tutorial + #341, #3967
+  static tutorial + #342, #3967
   static tutorial + #343, #3967
   static tutorial + #344, #3967
   static tutorial + #345, #3967
@@ -2544,7 +2544,7 @@ print_menu_chapeu_Screen:
   static tutorial + #422, #3967
   static tutorial + #423, #3967
   static tutorial + #424, #3967
-  static tutorial + #425, #25
+  static tutorial + #425, #3967
   static tutorial + #426, #3967
   static tutorial + #427, #3967
   static tutorial + #428, #3967
@@ -2572,13 +2572,13 @@ print_menu_chapeu_Screen:
   static tutorial + #448, #3967
   static tutorial + #449, #3967
   static tutorial + #450, #3967
-  static tutorial + #451, #3967
-  static tutorial + #452, #3967
-  static tutorial + #453, #3967
-  static tutorial + #454, #3967
-  static tutorial + #455, #3967
-  static tutorial + #456, #3967
-  static tutorial + #457, #3967
+  static tutorial + #451, #84
+  static tutorial + #452, #69
+  static tutorial + #453, #67
+  static tutorial + #454, #76
+  static tutorial + #455, #65
+  static tutorial + #456, #83
+  static tutorial + #457, #58
   static tutorial + #458, #3967
   static tutorial + #459, #3967
   static tutorial + #460, #3967
@@ -2619,18 +2619,18 @@ print_menu_chapeu_Screen:
   static tutorial + #493, #3967
   static tutorial + #494, #3967
   static tutorial + #495, #3967
-  static tutorial + #496, #0
-  static tutorial + #497, #0
-  static tutorial + #498, #0
-  static tutorial + #499, #0
-  static tutorial + #500, #0
+  static tutorial + #496, #3967
+  static tutorial + #497, #3967
+  static tutorial + #498, #3967
+  static tutorial + #499, #3967
+  static tutorial + #500, #25
   static tutorial + #501, #3967
   static tutorial + #502, #3967
-  static tutorial + #503, #23
+  static tutorial + #503, #3967
   static tutorial + #504, #3967
-  static tutorial + #505, #26
+  static tutorial + #505, #3967
   static tutorial + #506, #3967
-  static tutorial + #507, #24
+  static tutorial + #507, #3967
   static tutorial + #508, #3967
   static tutorial + #509, #3967
   static tutorial + #510, #3967
@@ -2698,23 +2698,23 @@ print_menu_chapeu_Screen:
   static tutorial + #568, #3967
   static tutorial + #569, #3967
   static tutorial + #570, #3967
-  static tutorial + #571, #3967
-  static tutorial + #572, #3967
-  static tutorial + #573, #3967
-  static tutorial + #574, #3967
-  static tutorial + #575, #3967
-  static tutorial + #576, #80
-  static tutorial + #577, #101
-  static tutorial + #578, #103
-  static tutorial + #579, #97
-  static tutorial + #580, #114
+  static tutorial + #571, #0
+  static tutorial + #572, #0
+  static tutorial + #573, #0
+  static tutorial + #574, #0
+  static tutorial + #575, #0
+  static tutorial + #576, #3967
+  static tutorial + #577, #3967
+  static tutorial + #578, #23
+  static tutorial + #579, #3967
+  static tutorial + #580, #26
   static tutorial + #581, #3967
-  static tutorial + #582, #3967
-  static tutorial + #583, #65
-  static tutorial + #584, #110
-  static tutorial + #585, #100
-  static tutorial + #586, #97
-  static tutorial + #587, #114
+  static tutorial + #582, #24
+  static tutorial + #583, #3967
+  static tutorial + #584, #3967
+  static tutorial + #585, #3967
+  static tutorial + #586, #3967
+  static tutorial + #587, #3967
   static tutorial + #588, #3967
   static tutorial + #589, #3967
   static tutorial + #590, #3967
@@ -2782,18 +2782,18 @@ print_menu_chapeu_Screen:
   static tutorial + #648, #3967
   static tutorial + #649, #3967
   static tutorial + #650, #3967
-  static tutorial + #651, #3967
-  static tutorial + #652, #3967
-  static tutorial + #653, #3967
-  static tutorial + #654, #3967
-  static tutorial + #655, #3967
+  static tutorial + #651, #80
+  static tutorial + #652, #101
+  static tutorial + #653, #103
+  static tutorial + #654, #97
+  static tutorial + #655, #114
   static tutorial + #656, #3967
   static tutorial + #657, #3967
-  static tutorial + #658, #3967
-  static tutorial + #659, #3967
-  static tutorial + #660, #3967
-  static tutorial + #661, #3967
-  static tutorial + #662, #3967
+  static tutorial + #658, #65
+  static tutorial + #659, #110
+  static tutorial + #660, #100
+  static tutorial + #661, #97
+  static tutorial + #662, #114
   static tutorial + #663, #3967
   static tutorial + #664, #3967
   static tutorial + #665, #3967
@@ -2863,9 +2863,9 @@ print_menu_chapeu_Screen:
   static tutorial + #725, #3967
   static tutorial + #726, #3967
   static tutorial + #727, #3967
-  static tutorial + #728, #79
-  static tutorial + #729, #118
-  static tutorial + #730, #111
+  static tutorial + #728, #3967
+  static tutorial + #729, #3967
+  static tutorial + #730, #3967
   static tutorial + #731, #3967
   static tutorial + #732, #3967
   static tutorial + #733, #3967
@@ -2906,9 +2906,9 @@ print_menu_chapeu_Screen:
   static tutorial + #766, #3967
   static tutorial + #767, #3967
   static tutorial + #768, #3967
-  static tutorial + #769, #3967
-  static tutorial + #770, #3967
-  static tutorial + #771, #22
+  static tutorial + #769, #79
+  static tutorial + #770, #118
+  static tutorial + #771, #111
   static tutorial + #772, #3967
   static tutorial + #773, #3967
   static tutorial + #774, #3967
@@ -3384,7 +3384,7 @@ print_tutorialScreen:
   pop R0
   rts
   
-  tela : var #1200
+tela : var #1200
   ;Linha 0
   static tela + #0, #9
   static tela + #1, #6
@@ -3405,15 +3405,15 @@ print_tutorialScreen:
   static tela + #16, #6
   static tela + #17, #6
   static tela + #18, #6
-  static tela + #19, #10
-  static tela + #20, #3967
-  static tela + #21, #3967
-  static tela + #22, #3967
-  static tela + #23, #3967
-  static tela + #24, #3967
-  static tela + #25, #3967
-  static tela + #26, #3967
-  static tela + #27, #3967
+  static tela + #19, #6
+  static tela + #20, #6
+  static tela + #21, #6
+  static tela + #22, #6
+  static tela + #23, #6
+  static tela + #24, #6
+  static tela + #25, #6
+  static tela + #26, #6
+  static tela + #27, #5
   static tela + #28, #83
   static tela + #29, #67
   static tela + #30, #79
@@ -3447,7 +3447,7 @@ print_tutorialScreen:
   static tela + #56, #3967
   static tela + #57, #3967
   static tela + #58, #3967
-  static tela + #59, #8
+  static tela + #59, #3967
   static tela + #60, #3967
   static tela + #61, #3967
   static tela + #62, #3967
@@ -3455,7 +3455,7 @@ print_tutorialScreen:
   static tela + #64, #3967
   static tela + #65, #3967
   static tela + #66, #3967
-  static tela + #67, #3967
+  static tela + #67, #5
   static tela + #68, #3967
   static tela + #69, #3967
   static tela + #70, #3967
@@ -3489,7 +3489,7 @@ print_tutorialScreen:
   static tela + #96, #3967
   static tela + #97, #3967
   static tela + #98, #3967
-  static tela + #99, #8
+  static tela + #99, #3967
   static tela + #100, #3967
   static tela + #101, #3967
   static tela + #102, #3967
@@ -3497,7 +3497,7 @@ print_tutorialScreen:
   static tela + #104, #3967
   static tela + #105, #3967
   static tela + #106, #3967
-  static tela + #107, #3967
+  static tela + #107, #5
   static tela + #108, #3967
   static tela + #109, #3967
   static tela + #110, #3967
@@ -3531,7 +3531,7 @@ print_tutorialScreen:
   static tela + #136, #3967
   static tela + #137, #3967
   static tela + #138, #3967
-  static tela + #139, #8
+  static tela + #139, #3967
   static tela + #140, #3967
   static tela + #141, #3967
   static tela + #142, #3967
@@ -3539,7 +3539,7 @@ print_tutorialScreen:
   static tela + #144, #3967
   static tela + #145, #3967
   static tela + #146, #3967
-  static tela + #147, #3967
+  static tela + #147, #5
   static tela + #148, #3967
   static tela + #149, #3967
   static tela + #150, #3967
@@ -3573,7 +3573,7 @@ print_tutorialScreen:
   static tela + #176, #3967
   static tela + #177, #3967
   static tela + #178, #3967
-  static tela + #179, #8
+  static tela + #179, #3967
   static tela + #180, #3967
   static tela + #181, #3967
   static tela + #182, #3967
@@ -3581,7 +3581,7 @@ print_tutorialScreen:
   static tela + #184, #3967
   static tela + #185, #3967
   static tela + #186, #3967
-  static tela + #187, #3967
+  static tela + #187, #5
   static tela + #188, #3967
   static tela + #189, #3967
   static tela + #190, #3967
@@ -3596,26 +3596,26 @@ print_tutorialScreen:
   static tela + #199, #3967
 
   ;Linha 5
-  static tela + #200, #12
-  static tela + #201, #7
-  static tela + #202, #7
-  static tela + #203, #7
-  static tela + #204, #7
-  static tela + #205, #7
-  static tela + #206, #7
-  static tela + #207, #7
-  static tela + #208, #7
-  static tela + #209, #7
-  static tela + #210, #7
-  static tela + #211, #7
-  static tela + #212, #7
-  static tela + #213, #7
-  static tela + #214, #7
-  static tela + #215, #7
-  static tela + #216, #7
-  static tela + #217, #7
-  static tela + #218, #7
-  static tela + #219, #11
+  static tela + #200, #5
+  static tela + #201, #3967
+  static tela + #202, #3967
+  static tela + #203, #3967
+  static tela + #204, #3967
+  static tela + #205, #3967
+  static tela + #206, #3967
+  static tela + #207, #3967
+  static tela + #208, #3967
+  static tela + #209, #3967
+  static tela + #210, #3967
+  static tela + #211, #3967
+  static tela + #212, #3967
+  static tela + #213, #3967
+  static tela + #214, #3967
+  static tela + #215, #3967
+  static tela + #216, #3967
+  static tela + #217, #3967
+  static tela + #218, #3967
+  static tela + #219, #3967
   static tela + #220, #3967
   static tela + #221, #3967
   static tela + #222, #3967
@@ -3623,7 +3623,7 @@ print_tutorialScreen:
   static tela + #224, #3967
   static tela + #225, #3967
   static tela + #226, #3967
-  static tela + #227, #3967
+  static tela + #227, #5
   static tela + #228, #3967
   static tela + #229, #3967
   static tela + #230, #3967
@@ -3638,7 +3638,7 @@ print_tutorialScreen:
   static tela + #239, #3967
 
   ;Linha 6
-  static tela + #240, #3967
+  static tela + #240, #5
   static tela + #241, #3967
   static tela + #242, #3967
   static tela + #243, #3967
@@ -3665,7 +3665,7 @@ print_tutorialScreen:
   static tela + #264, #3967
   static tela + #265, #3967
   static tela + #266, #3967
-  static tela + #267, #3967
+  static tela + #267, #5
   static tela + #268, #3967
   static tela + #269, #3967
   static tela + #270, #3967
@@ -3680,34 +3680,34 @@ print_tutorialScreen:
   static tela + #279, #3967
 
   ;Linha 7
-  static tela + #280, #3967
-  static tela + #281, #3967
-  static tela + #282, #3967
-  static tela + #283, #3967
-  static tela + #284, #3967
-  static tela + #285, #3967
-  static tela + #286, #3967
-  static tela + #287, #3967
-  static tela + #288, #3967
-  static tela + #289, #3967
-  static tela + #290, #3967
-  static tela + #291, #3967
-  static tela + #292, #3967
-  static tela + #293, #3967
-  static tela + #294, #3967
-  static tela + #295, #3967
-  static tela + #296, #3967
-  static tela + #297, #3967
-  static tela + #298, #3967
-  static tela + #299, #3967
-  static tela + #300, #3967
-  static tela + #301, #3967
-  static tela + #302, #3967
-  static tela + #303, #3967
-  static tela + #304, #3967
-  static tela + #305, #3967
-  static tela + #306, #3967
-  static tela + #307, #3967
+  static tela + #280, #12
+  static tela + #281, #7
+  static tela + #282, #7
+  static tela + #283, #7
+  static tela + #284, #7
+  static tela + #285, #7
+  static tela + #286, #7
+  static tela + #287, #7
+  static tela + #288, #7
+  static tela + #289, #7
+  static tela + #290, #7
+  static tela + #291, #7
+  static tela + #292, #7
+  static tela + #293, #7
+  static tela + #294, #7
+  static tela + #295, #7
+  static tela + #296, #7
+  static tela + #297, #7
+  static tela + #298, #7
+  static tela + #299, #7
+  static tela + #300, #7
+  static tela + #301, #7
+  static tela + #302, #7
+  static tela + #303, #7
+  static tela + #304, #7
+  static tela + #305, #7
+  static tela + #306, #7
+  static tela + #307, #5
   static tela + #308, #3967
   static tela + #309, #3967
   static tela + #310, #3967
