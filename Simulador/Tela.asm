@@ -1259,7 +1259,7 @@ tela : var #1200
   static tela + #1198, #7
   static tela + #1199, #11
 
-printtelaScreen:
+print_telaScreen:
   push R0
   push R1
   push R2
@@ -1269,7 +1269,7 @@ printtelaScreen:
   loadn R1, #0
   loadn R2, #1200
 
-  printtelaScreenLoop:
+  print_telaScreenLoop:
 
     add R3,R0,R1
     loadi R3, R3
@@ -1277,7 +1277,7 @@ printtelaScreen:
     inc R1
     cmp R1, R2
 
-    jne printtelaScreenLoop
+    jne print_telaScreenLoop
 
   pop R3
   pop R2

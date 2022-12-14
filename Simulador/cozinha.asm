@@ -2623,7 +2623,7 @@ tutorial : var #1200
   static tutorial + #497, #3967
   static tutorial + #498, #3967
   static tutorial + #499, #3967
-  static tutorial + #500, #25
+  static tutorial + #500, #3967
   static tutorial + #501, #3967
   static tutorial + #502, #3967
   static tutorial + #503, #3967
@@ -2658,7 +2658,7 @@ tutorial : var #1200
   static tutorial + #530, #3967
   static tutorial + #531, #3967
   static tutorial + #532, #3967
-  static tutorial + #533, #3967
+  static tutorial + #533, #119
   static tutorial + #534, #3967
   static tutorial + #535, #3967
   static tutorial + #536, #3967
@@ -2698,18 +2698,18 @@ tutorial : var #1200
   static tutorial + #568, #3967
   static tutorial + #569, #3967
   static tutorial + #570, #3967
-  static tutorial + #571, #0
-  static tutorial + #572, #0
-  static tutorial + #573, #0
-  static tutorial + #574, #0
-  static tutorial + #575, #0
+  static tutorial + #571, #3967
+  static tutorial + #572, #3967
+  static tutorial + #573, #3967
+  static tutorial + #574, #3967
+  static tutorial + #575, #3967
   static tutorial + #576, #3967
   static tutorial + #577, #3967
-  static tutorial + #578, #23
+  static tutorial + #578, #3967
   static tutorial + #579, #3967
-  static tutorial + #580, #26
+  static tutorial + #580, #3967
   static tutorial + #581, #3967
-  static tutorial + #582, #24
+  static tutorial + #582, #3967
   static tutorial + #583, #3967
   static tutorial + #584, #3967
   static tutorial + #585, #3967
@@ -2740,18 +2740,18 @@ tutorial : var #1200
   static tutorial + #608, #3967
   static tutorial + #609, #3967
   static tutorial + #610, #3967
-  static tutorial + #611, #3967
+  static tutorial + #611, #97
   static tutorial + #612, #3967
-  static tutorial + #613, #3967
+  static tutorial + #613, #115
   static tutorial + #614, #3967
-  static tutorial + #615, #3967
+  static tutorial + #615, #100
   static tutorial + #616, #3967
   static tutorial + #617, #3967
-  static tutorial + #618, #3967
-  static tutorial + #619, #3967
-  static tutorial + #620, #3967
-  static tutorial + #621, #3967
-  static tutorial + #622, #3967
+  static tutorial + #618, #0
+  static tutorial + #619, #0
+  static tutorial + #620, #0
+  static tutorial + #621, #0
+  static tutorial + #622, #0
   static tutorial + #623, #3967
   static tutorial + #624, #3967
   static tutorial + #625, #3967
@@ -2782,18 +2782,18 @@ tutorial : var #1200
   static tutorial + #648, #3967
   static tutorial + #649, #3967
   static tutorial + #650, #3967
-  static tutorial + #651, #80
-  static tutorial + #652, #101
-  static tutorial + #653, #103
-  static tutorial + #654, #97
-  static tutorial + #655, #114
+  static tutorial + #651, #3967
+  static tutorial + #652, #3967
+  static tutorial + #653, #3967
+  static tutorial + #654, #3967
+  static tutorial + #655, #3967
   static tutorial + #656, #3967
   static tutorial + #657, #3967
-  static tutorial + #658, #65
-  static tutorial + #659, #110
-  static tutorial + #660, #100
-  static tutorial + #661, #97
-  static tutorial + #662, #114
+  static tutorial + #658, #3967
+  static tutorial + #659, #3967
+  static tutorial + #660, #3967
+  static tutorial + #661, #3967
+  static tutorial + #662, #3967
   static tutorial + #663, #3967
   static tutorial + #664, #3967
   static tutorial + #665, #3967
@@ -2824,18 +2824,18 @@ tutorial : var #1200
   static tutorial + #688, #3967
   static tutorial + #689, #3967
   static tutorial + #690, #3967
-  static tutorial + #691, #3967
-  static tutorial + #692, #3967
-  static tutorial + #693, #3967
-  static tutorial + #694, #3967
-  static tutorial + #695, #3967
+  static tutorial + #691, #65
+  static tutorial + #692, #110
+  static tutorial + #693, #100
+  static tutorial + #694, #97
+  static tutorial + #695, #114
   static tutorial + #696, #3967
   static tutorial + #697, #3967
-  static tutorial + #698, #3967
-  static tutorial + #699, #3967
-  static tutorial + #700, #3967
-  static tutorial + #701, #3967
-  static tutorial + #702, #3967
+  static tutorial + #698, #80
+  static tutorial + #699, #101
+  static tutorial + #700, #103
+  static tutorial + #701, #97
+  static tutorial + #702, #114
   static tutorial + #703, #3967
   static tutorial + #704, #3967
   static tutorial + #705, #3967
