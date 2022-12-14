@@ -90,6 +90,29 @@
 
 jmp main
 
+;------------Coisas do hugo-----------------
+alimento: var #1 static alimento, #' '
+
+cabeca: string "o"
+corpoNormal: string "/|\\"
+corpoBracoLevantado: string "/|"
+
+caractereAlimento1: var #1 static caractereAlimento1, #'@'
+caractereAlimento2: var #1 static caractereAlimento2, #'$'
+caractereAlimento3: var #1 static caractereAlimento3, #'#'
+
+posAlimento1: var #1 static posAlimento1, #801
+posAlimento2: var #1 static posAlimento2, #803
+posAlimento3: var #1 static posAlimento3, #805
+
+;Posição do personagem na tela, começando do 820.
+posicao: var #1 static posicao, #820
+
+;Flag de mão ocupada. Começa com a mão desocupada.
+maoEstaOcupada: var #1 static maoEstaOcupada, #0
+
+;-------------------------------------------
+
 NomeRestaurante: string "Burger King"
 ComandaAtual: var #1
 	static ComandaAtual, #0 ;inicializa comanda com 0
@@ -180,9 +203,337 @@ main:
 	call GerarComanda
 	load r0, ComandaAtual
 	call ImprimeTelaJogo
-	halt
+	
+	;RECEBE A MOVIMENTAÇÃO.
+	loop:
+		push r0
+		load r0, posicao
+		call imprimePessoa
+		call movimentaPersonagem
+		pop r0
+		jmp loop
+	sair:
+		halt
+		rts
+
+
+
+;----------FUNÇÕES DE MOVIMENTAÇÃO-------
+
+recebeComando:
+	;R0: tecla recebida.
+	;R1: caractere vazio.
+	inchar r0
+	;Carrega r1 com caractere vazio.
+	loadn r1, #255
+	cmp r0,r1
+	jeq recebeComando
 	rts
 
+movimentaPersonagem:
+	;R0: tecla recebida.
+	;R1: tecla esperada.
+	;R2: posicao do personagem.
+	push r0
+	push r1
+	push r2
+	push r3
+	
+	load r2, posicao
+	
+	;Recebe um comando válido do teclado
+	call recebeComando
+	
+	loadn r1, #'a'
+	cmp r0,r1
+	ceq moveEsquerda
+	
+	loadn r1, #'d'
+	cmp r0, r1
+	ceq moveDireita
+	
+	loadn r1, #' '
+	cmp r0, r1
+	ceq pegaAlimento
+	
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	
+	rts
+
+moveEsquerda:
+	;R2: posição do personagem.
+	;R3: limite esquerdo.
+	
+	;Carrega o limite esquerdo.
+	loadn r3, #801
+	
+	;Compara r2 com r3.
+	cmp	r2, r3
+	;Se r2 == r3
+	jeq fimMoveEsquerda
+		
+	dec r2
+	store posicao, r2
+	
+	fimMoveEsquerda:
+	rts
+
+moveDireita:
+	;R2: posição do personagem.
+	;R3: limite esquerdo.
+
+	loadn r3, #838
+	cmp r2, r3
+	jeq fimMoveDireita
+	
+	inc r2
+	store posicao, r2
+	
+	fimMoveDireita:
+	rts
+
+pegaAlimento:
+	push r0
+	push r1
+	push r2
+	push r3
+	
+	;Variável maoEstaOcupada começa como true (1).
+	loadn r3, #1
+	store maoEstaOcupada, r3
+	
+	;Carrega a posição do personagem.
+	load r0, posicao
+	
+	;Carrega a posição do alimento 1 e vê se o personagem está lá.
+	load r1, posAlimento1
+	cmp r1,r0
+	jeq pegarAlimento1
+	
+	;Carrega a posição do alimento 2 e vê se o personagem está lá.
+	load r1, posAlimento2
+	cmp r1,r0
+	jeq pegarAlimento2
+	
+	;Carrega a posição do alimento 3 e vê se o personagem está lá.
+	load r1, posAlimento3
+	cmp r1,r0
+	jeq pegarAlimento3
+	
+	;Se chegou aqui, não pegou nenhum alimento. Atualiza maoEstaOcupada para false (0).
+	loadn r3, #0
+	store maoEstaOcupada, r3
+	;Põe um alimento vazio na variável alimento.
+	loadn r3, #' '
+	store alimento, r3
+	jmp alimentoPegado
+	
+	pegarAlimento1:
+	    load r2, caractereAlimento1
+		store alimento, r2
+		jmp alimentoPegado
+	pegarAlimento2:
+		load r2, caractereAlimento2
+		store alimento, r2
+		jmp alimentoPegado
+	pegarAlimento3:
+		load r2, caractereAlimento3
+		store alimento, r2
+		jmp alimentoPegado
+	
+	;CONTINUA PARA OS PROXIMOS ALIMENTOS...
+	
+	alimentoPegado:
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	
+	rts
+
+limpaPessoaTela:
+	push r0
+	push r1
+	push r2
+	push r3
+	push r4
+	
+	;Lê a posição do personagem
+	load r0, posicao
+	;Lê o tamanho de uma linha.
+	loadn r1, #40
+	;Lê um espaço vazio.
+	loadn r2, #' '
+	;Lê o limite da limpeza.
+	mov r4,r0
+	inc r4
+	inc r4
+	
+	;Volta duas linhas a partir do braço esquerdo.
+	dec r0
+	dec r0
+	sub r0, r0, r1
+	sub r0, r0, r1
+	
+	;r3 recebe o limite da linha.
+	mov r3, r0
+	inc r3
+	inc r3
+	inc r3
+	inc r3
+	
+	limpaLinhaPersonagem:
+		outchar r2, r0 	;imprime vazio.
+		inc r0			;proxima posicao
+		outchar r2, r0 	;imprime vazio.
+		cmp r0, r3		;verifica se chegou no fim da linha.
+		jne limpaLinhaPersonagem	;se não chegou, reseta.
+		
+		cmp r3,r4		;Verifica se é a ultima linha.
+		jeq fimLimpeza
+		;Se chegou no limite da linha, volta duas posições
+		dec r0			
+		dec r0
+		dec r0
+		dec r0
+		;Pula uma linha.
+		add r0, r0, r1
+		add r3 , r3, r1
+		jmp limpaLinhaPersonagem
+	
+	fimLimpeza:
+	pop r4
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	
+	rts
+
+imprimePessoa:
+	;R0: POSICAO.
+	;R1: ENDEREOÇO DA CABEÇA.
+	;R2: ENDEREÇO DO CORPO.
+	;R4: POSICAO DA CABEÇA.
+	;R5: CARACTERE A IMPRIMIR
+	
+	call limpaPessoaTela
+
+	;PEGA POSICAO DA CABECA.
+	push r0
+	push r1
+	push r2
+	push r3
+	push r4
+	push r5
+	
+	;Carrega a posição e volta duas linhas.
+	load r4, posicao
+	loadn r5, #40
+	sub r4, r4, r5
+	sub r4, r4, r5
+	
+	;Põe na posição do alimento e o imprime.
+	inc r4
+	load r1, alimento
+	outchar r1, r4
+	
+	;Volta cursor para a posição da cabeça.
+	dec r4
+	add r4, r4, r5
+	
+	;Carrega o caractere da cabeça.
+	loadn r1, #cabeca
+	loadi r5, r1
+
+	;ESCREVE 'cabeça' NA POSIÇÃO r4.
+	outchar r5, r4
+	
+	;Verifica se a mão esta ocupada.
+	loadn r5, #1
+	load r3, maoEstaOcupada
+	cmp r3, r5
+	ceq levantaBraco
+	cne abaixaBraco
+	
+	;Carrega posição do corpo;
+	load r4, posicao
+	dec r4
+	
+	;Carrega um caractere do corpo.
+	loadi r5, r2
+	outchar r5, r4
+	;Carrega e imprime o próximo caractere do corpo.
+	inc r2
+	inc r4
+	loadi r5, r2
+	outchar r5, r4
+	;Carrega e imprime o próximo caractere do corpo.
+	inc r2
+	inc r4
+	loadi r5, r2
+	outchar r5, r4
+	
+	;Obtem os valores dos registradores de volta.
+	pop r5
+	pop r4
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	rts
+	
+imprimeAlimentos:
+	push r0
+	push r1
+	push r2
+	push r3
+	
+	load r0, caractereAlimento1
+	load r1, caractereAlimento2
+	load r2, caractereAlimento3
+	
+	loadn r3, #840
+	inc r3
+	
+	outchar r0, r3
+	
+	inc r3
+	inc r3
+	
+	outchar r1, r3
+	
+	inc r3
+	inc r3
+	
+	outchar r2, r3
+	
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	rts
+
+levantaBraco:
+	;Põe o braço ao lado da cabeça.
+	inc r4
+	loadn r5, #'/'
+	outchar r5, r4
+	
+	;Atualiza o corpo
+	loadn r2, #corpoBracoLevantado
+	
+	rts
+
+abaixaBraco:
+	loadn r2, #corpoNormal
+	rts
+
+
+;----------------------------------------
 
 GerarNumeroAleatorio:
 	push r0
@@ -192,7 +543,6 @@ GerarNumeroAleatorio:
 		loadn r1, #255
 		cmp r0, r1
 		call LoopGerarNumeroAleatorio
-		breakp
 		store NumeroAleatorio, r2
 		
 	pop r2
@@ -360,7 +710,6 @@ ComandaAtual_Recebe_Receita_9:
 	rts
 	
 ImprimeTelaJogo:
-	
 	call printTextoComandaAtual
 	call printIngredientes
 	rts
