@@ -110,27 +110,28 @@ FimDoJogo:
 ## **TODO**
 
 - [ ] Funções
-  - [ ] main
+  - [x] main
   - [x] Loop Menu &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; **_(Isaac)_**
-  - [ ] LoopJogo &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;**_(Hugo)_**
+  - [x] LoopJogo &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;**_(Hugo)_**
   - [ ] EstaSobreCampainha &emsp;&emsp;**_(Isaac e Guilherme)_**
-  - [ ] AtualizaPontos &emsp;&emsp;&emsp; &emsp; **_(Isaac e Guilherme)_**
-  - [ ] LerNomeRestaurante
-  - [ ] EntradaTeclado
-  - [ ] ImprimeTelaJogo
+  - [x] AtualizaPontos &emsp;&emsp;&emsp; &emsp; **_(Isaac e Guilherme)_**
+  - [x] EntradaTeclado **(Varias entradas mas nao uma função)**
+  - [x] ImprimeTelaJogo
+  - [x] GerarNumeroAleatoirio
   - [x] GerarComandas &emsp;&emsp;&emsp;&emsp;**_(Nicholas)_**
   - [ ] FimDoJogo &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;**_(Isaac e Guilherme)_**
  
 - [ ] Sprites
-  - [ ] Cenário
-    - [ ] Cozinha
-    - [ ] Bancada
-      - [ ] Campainha
-      - [ ] Prato
-    - [ ] Pontuação  
-    - [ ] Comandas
-  - [ ] Ingredientes
-  - [ ] Personagem
+  - [x] Cenário
+    - [x] Cozinha
+    - [x] Bancada
+      - [x] Campainha
+      - [x] Prato **(Bandeija)**
+    - [x] Pontuação  
+    - [x] Comandas
+  - [x] Ingredientes
+  - [x] Personagem
   - [ ] Telas
-    - [ ] Menu Principal
-    - [ ] Tutorial
+    - [x] Menu Principal
+    - [x] Tutorial
+	- [ ] Fim de Jogo
