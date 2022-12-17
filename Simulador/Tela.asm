@@ -1018,7 +1018,7 @@ tela : var #1200
   static tela + #967, #768
   static tela + #968, #3967
   static tela + #969, #2818
-  static tela + #970, #2820
+  static tela + #970, #2941
   static tela + #971, #3967
   static tela + #972, #256
   static tela + #973, #256
