@@ -234,10 +234,6 @@ StringTomate: string "Tomate"
 
 main:
 	call Menu
-<<<<<<< HEAD
-	halt
-	rts
-=======
 	
 	halt
 	rts
@@ -276,8 +272,11 @@ Menu:
 			load r0, ComandaAtual			
 			call print_telaScreen			
 			call ImprimeTelaJogo
-			breakp	
+			call Zera_Score
+			call Imprime_Score
 			;--IniciaJogo--;
+      		call jogar
+      
 			jmp Menu
 			
 	SairMenu:		
@@ -298,7 +297,16 @@ Tutorial:
 		jne LoopTutorial
 		jeq Menu
 	rts
->>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
+
+jogar:
+	push r0
+	loopJogo:
+		load r0, posicao
+		call imprimePessoa
+		call movimentaPersonagem
+		jmp loopJogo
+	pop r0
+	rts
 
 ;----------FUNÇÕES DE MOVIMENTAÇÃO-------
 
@@ -342,7 +350,6 @@ movimentaPersonagem:
 	pop r2
 	pop r1
 	pop r0
-	
 	rts
 
 moveEsquerda:
@@ -554,11 +561,13 @@ pegaAlimento:
 		cmp r4,r3
 		jeq alimentoPegado
 		
+		
 		add r2, r2, r3
 		loadn r3, #620
 		outchar r2,r3
 		store pedidoNaBandeja, r2
-	
+		call Inc_Score
+		
 	soltarAlimento:
 		loadn r3, #0
 		store maoEstaOcupada, r3
@@ -733,64 +742,6 @@ imprimeAlimentos:
 	outchar r2, r3
 	
 	pop r3
-<<<<<<< HEAD
-
-	halt
-	rts
-
-jogar:
-	push r0
-	loopJogo:
-		load r0, posicao
-		call imprimePessoa
-		call movimentaPersonagem
-		jmp loopJogo
-	pop r0
-	rts
-
-Menu:
-	;--ImprimeMenu--;
-	call print_menu_chapeu_Screen
-	push r0 ; input tecla
-	push r1 ; tecla a ser testada
-	push r2 ; numero aleatorio
-		LoopMenu:
-			;inchar r0
-			call GerarNumeroAleatorio
-			;store NumeroAleatorio, r0
-			loadn r1, #50 
-			cmp r0, r1
-			inc r2
-			ceq Tutorial ; digitou 1 pula pra Tutorial
-			loadn r1, #49  
-			cmp r0, r1
-			inc r2
-			jeq IniciaJogo ; digitou 2 pula IniciaJogo
-			loadn r1, #48 
-			cmp r0, r1 ; digitou 0 pula para SairMenu
-			inc r2
-			jeq SairMenu
-			jne LoopMenu ; se nao for nenhuma das opcoes pula para LoopMenu 
-			
-		IniciaJogo:
-			;store NumeroAleatorio, r0
-			pop r2
-			pop r1
-			pop r0
-			;call GerarNumeroAleatorio
-			call GerarComanda
-			load r0, ComandaAtual			
-			call print_telaScreen			
-			call ImprimeTelaJogo	
-			
-			;--IniciaJogo--;
-			call jogar
-			
-			jmp Menu
-			
-	SairMenu:		
-=======
->>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 	pop r2
 	pop r1
 	pop r0
@@ -814,25 +765,7 @@ abaixaBraco:
 	loadn r5, #' '
 	outchar r5, r4
 	rts
-<<<<<<< HEAD
-
-
-;----------------------------------------
-
-Tutorial:
-	;--ImprimeTelaTutorial--;
-	call print_tutorialScreen
-	LoopTutorial:
-		inchar r0
-		loadn r1, #48 ; digitou 0 volta para Menu
-		cmp r0, r1
-		inc r2
-		jne LoopTutorial
-		jeq Menu
-	rts
-=======
   ;----------------------------------------
->>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 
 GerarNumeroAleatorio:
 	;push r0
@@ -842,10 +775,6 @@ GerarNumeroAleatorio:
 		loadn r1, #255
 		cmp r0, r1
 		call LoopGerarNumeroAleatorio
-<<<<<<< HEAD
-		;breakp
-=======
->>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 		store NumeroAleatorio, r2
 		
 	pop r2
@@ -1124,37 +1053,78 @@ limpaIngredientes:
 	pop fr
 	
 	rts
+
+Imprime_Score:
+	push r4 ; posicao tela
+	push r5
+	push r6
+	push r7 ; Score atual
+		loadn r4, #39
+		load r7, Score
+		Loop_Imprime_Score:
+			loadn r6, #10 ; div e mod por 10	 
+			mod r5, r7, r6
+			div r7, r7, r6 ; divide score por 10
+			loadn r6, #48 ; ascii 0
+			add r5, r5, r6 ; soma resto no ascii zero
+			outchar r5, r4
+			dec r4
+			loadn r6, #0 ; div e mod por 10
+			cmp r7, r6 ; ve se nao eh zero
+			jne Loop_Imprime_Score
+			loadn r6, #34
+		Loop_Imprime_Zero_Score:
+			cmp r4, r6
+			jeq Sair_Imprime_Score
+			loadn r5, #48
+			outchar r5, r4
+			dec r4
+			jmp Loop_Imprime_Zero_Score
+Sair_Imprime_Score:		
+	pop r7
+	pop r6
+	pop r5
+	pop r4
+	rts
 	
-Inc_Socre:
-  push r5
-  push r6
-  push r7
-    loadn r5, #0
-    loadn r6, #20
-    cmp r7, r5
-    jeq Sair_Inc_Socre
-    load r7, Score
-    add r7, r6, r5
-    store r5, Score
+Inc_Score:
+	push r6
+	push r7 ; Score atual
+		loadn r6, #65535
+		load r7, Score
+		cmp r7, r6 
+		jeq Sair_Dec_Score ; Se o score for o valor max do registrador nao incrementa
+		loadn r6, #20
+		add r7, r7, r6
+		store Score, r7
+	Sair_Dec_Score:    
+	pop r7
+	pop r6
+	call Imprime_Score
+	rts
 
-  Sair_Inc_Socre:
-  pop r7
-  pop r6
-  pop r5
-  rts
+Dec_Score:
+	push r6
+	push r7 ; Score atual
+		loadn r6, #0
+		load r7, Score
+		cmp r7, r6
+		jeq Sair_Dec_Score ; Se o score for zero nao decrementa
+		loadn r6, #30
+		sub r7, r6, r5
+		store Score, r5
+	Sair_Dec_Score:    
+	pop r7
+	pop r6
+	call Imprime_Score
+	rts
 
-Dec_Socre:
-  push r5
-  push r6
-  push r7
-    loadn r6, #20
-    load r7, Score
-    SUB r7, r6, r5
-    store r5, Score
-  pop r7
-  pop r6
-  pop r5
-  rts
+Zera_Score:
+ 	push r7
+		loadn r7, #0
+		store Score, r7		
+	pop r7
+	rts
 
 imprimeIngrediente1:
 	push fr		; Protege o registrador de flags
