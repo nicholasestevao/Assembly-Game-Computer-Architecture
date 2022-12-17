@@ -93,7 +93,12 @@ jmp main
 ;------------Coisas do hugo-----------------
 alimento: var #1 static alimento, #' '
 
-cabeca: string "o"
+chapeu: var #1 static chapeu, #59
+cabeca: var #1 static cabeca, #18
+corpo: var #1 static corpo, #123
+braco_esq: var #1 static braco_esq, #21
+braco_dir: var #1 static braco_dir, #22
+
 corpoNormal: string "/|\\"
 corpoBracoLevantado: string "/|"
 
@@ -101,15 +106,43 @@ caractereAlimento1: var #1 static caractereAlimento1, #'@'
 caractereAlimento2: var #1 static caractereAlimento2, #'$'
 caractereAlimento3: var #1 static caractereAlimento3, #'#'
 
+caractereTomate: var #1 static caractereTomate, #2319
+caractereAlface: var #1 static caractereAlface, #2577
+caractereQueijo: var #1 static caractereQueijo, #2830
+caractereCarne: var #1 static caractereCarne, #272
+caractereOvo: var #1 static caractereOvo, #13
+caractereMaionese: var #1 static caractereMaionese, #2133
+caractereKetchup: var #1 static caractereKetchup, #2389
+caractereMostarda: var #1 static caractereMostarda, #2901
+
+posTomate: var #1 static posTomate, #842
+posAlface: var #1 static posAlface, #846
+posQueijo: var #1 static posQueijo, #849
+posCarne: var #1 static posCarne, #852
+posOvo: var #1 static posOvo, #855
+
+posMaionese: var #1 static posMaionese, #858
+posKetchup: var #1 static posKetchup, #860
+posMostarda: var #1 static posMostarda, #862
+
+posLixeira: var #1 static posLixeira, #866
+posBandejaInicio: var #1 static posBandejaInicio, #870
+posBandejaFim: var #1 static posBandejaFim, #876
+posCampanha: var #1 static posCampanha, #877
+
 posAlimento1: var #1 static posAlimento1, #801
 posAlimento2: var #1 static posAlimento2, #803
 posAlimento3: var #1 static posAlimento3, #805
 
 ;Posição do personagem na tela, começando do 820.
-posicao: var #1 static posicao, #820
+posicao: var #1 static posicao, #860
 
 ;Flag de mão ocupada. Começa com a mão desocupada.
 maoEstaOcupada: var #1 static maoEstaOcupada, #0
+
+pedidoNaBandeja: var #1 static pedidoNaBandeja, #0
+
+alimentoNaMao: var #1 static alimentoNaMao, #0
 
 ;-------------------------------------------
 
@@ -201,6 +234,10 @@ StringTomate: string "Tomate"
 
 main:
 	call Menu
+<<<<<<< HEAD
+	halt
+	rts
+=======
 	
 	halt
 	rts
@@ -261,6 +298,7 @@ Tutorial:
 		jne LoopTutorial
 		jeq Menu
 	rts
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 
 ;----------FUNÇÕES DE MOVIMENTAÇÃO-------
 
@@ -339,58 +377,199 @@ moveDireita:
 	fimMoveDireita:
 	rts
 
+
 pegaAlimento:
 	push r0
 	push r1
 	push r2
 	push r3
+	push r4
 	
 	;Variável maoEstaOcupada começa como true (1).
-	loadn r3, #1
-	store maoEstaOcupada, r3
+	;loadn r3, #1
+	;store maoEstaOcupada, r3
 	
 	;Carrega a posição do personagem.
 	load r0, posicao
 	
-	;Carrega a posição do alimento 1 e vê se o personagem está lá.
-	load r1, posAlimento1
+	;Carrega a posição do alimento 3 e vê se o personagem está lá.
+	load r1, posLixeira
 	cmp r1,r0
-	jeq pegarAlimento1
+	jeq soltarAlimento
+	inc r1
+	cmp r1,r0
+	jeq soltarAlimento
+	
+	;Verifica se está colocando comida na bandeja.
+	load r1, posBandejaInicio
+	cmp r1,r0
+	jeq colocarBandeja
+	inc r1
+	cmp r1,r0
+	jeq colocarBandeja
+	inc r1
+	cmp r1,r0
+	jeq colocarBandeja
+	inc r1
+	cmp r1,r0
+	jeq colocarBandeja
+	inc r1
+	cmp r1,r0
+	jeq colocarBandeja
+	inc r1
+	cmp r1,r0
+	jeq colocarBandeja
+	
+	load r1, maoEstaOcupada
+	loadn r2, #1
+	cmp r1, r2
+	jeq alimentoPegado 
+	
+	;Carrega a posição do alimento 1 e vê se o personagem está lá.
+	load r1, posTomate
+	cmp r1,r0
+	jeq pegarTomate
+	inc r1
+	cmp r1,r0
+	jeq pegarTomate
 	
 	;Carrega a posição do alimento 2 e vê se o personagem está lá.
-	load r1, posAlimento2
+	load r1, posAlface
 	cmp r1,r0
-	jeq pegarAlimento2
+	jeq pegarAlface
+	inc r1
+	cmp r1,r0
+	jeq pegarAlface
 	
 	;Carrega a posição do alimento 3 e vê se o personagem está lá.
-	load r1, posAlimento3
+	load r1, posQueijo
 	cmp r1,r0
-	jeq pegarAlimento3
+	jeq pegarQueijo
+	inc r1
+	cmp r1,r0
+	jeq pegarQueijo
 	
-	;Se chegou aqui, não pegou nenhum alimento. Atualiza maoEstaOcupada para false (0).
-	loadn r3, #0
-	store maoEstaOcupada, r3
-	;Põe um alimento vazio na variável alimento.
-	loadn r3, #' '
-	store alimento, r3
+	;Carrega a posição do alimento 3 e vê se o personagem está lá.
+	load r1, posCarne
+	cmp r1,r0
+	jeq pegarCarne
+	inc r1
+	cmp r1,r0
+	jeq pegarCarne
+	
+	;Carrega a posição do alimento 3 e vê se o personagem está lá.
+	load r1, posOvo
+	cmp r1,r0
+	jeq pegarOvo
+	inc r1
+	cmp r1,r0
+	jeq pegarOvo
+	
+	;Carrega a posição do alimento 3 e vê se o personagem está lá.
+	load r1, posMaionese
+	cmp r1,r0
+	jeq pegarMaionese
+	
+	;Carrega a posição do alimento 3 e vê se o personagem está lá.
+	load r1, posKetchup
+	cmp r1,r0
+	jeq pegarKetchup
+	
+	;Carrega a posição do alimento 3 e vê se o personagem está lá.
+	load r1, posMostarda
+	cmp r1,r0
+	jeq pegarMostarda
+	
+	
 	jmp alimentoPegado
 	
-	pegarAlimento1:
-	    load r2, caractereAlimento1
+	pegarTomate:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		loadn r3, #128
+		store alimentoNaMao, r3
+	    load r2, caractereTomate
 		store alimento, r2
 		jmp alimentoPegado
-	pegarAlimento2:
-		load r2, caractereAlimento2
+	pegarAlface:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		loadn r3, #64
+		store alimentoNaMao, r3
+		load r2, caractereAlface
 		store alimento, r2
 		jmp alimentoPegado
-	pegarAlimento3:
-		load r2, caractereAlimento3
+	pegarQueijo:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		loadn r3, #32
+		store alimentoNaMao, r3
+		load r2, caractereQueijo
 		store alimento, r2
 		jmp alimentoPegado
+	pegarCarne:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		loadn r3, #16
+		store alimentoNaMao, r3
+		load r2, caractereCarne
+		store alimento, r2
+		jmp alimentoPegado
+	pegarOvo:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		loadn r3, #8
+		store alimentoNaMao, r3
+		load r2, caractereOvo
+		store alimento, r2
+		jmp alimentoPegado
+	pegarMaionese:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		loadn r3, #4
+		store alimentoNaMao, r3
+		load r2, caractereMaionese
+		store alimento, r2
+		jmp alimentoPegado
+	pegarKetchup:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		loadn r3, #2
+		store alimentoNaMao, r3
+		load r2, caractereKetchup
+		store alimento, r2
+		jmp alimentoPegado
+	pegarMostarda:
+		loadn r3, #1
+		store maoEstaOcupada, r3
+		store alimentoNaMao, r3
+		load r2, caractereMostarda
+		store alimento, r2
+		jmp alimentoPegado
+	colocarBandeja:
+		load r3, alimentoNaMao
+		load r2, pedidoNaBandeja
+		
+		and r4, r2, r3
+		cmp r4,r3
+		jeq alimentoPegado
+		
+		add r2, r2, r3
+		loadn r3, #620
+		outchar r2,r3
+		store pedidoNaBandeja, r2
 	
-	;CONTINUA PARA OS PROXIMOS ALIMENTOS...
+	soltarAlimento:
+		loadn r3, #0
+		store maoEstaOcupada, r3
+		store alimentoNaMao, r3
+		;Põe um alimento vazio na variável alimento.
+		loadn r3, #' '
+		store alimento, r3
+		jmp alimentoPegado
 	
 	alimentoPegado:
+	pop r4
 	pop r3
 	pop r2
 	pop r1
@@ -480,6 +659,10 @@ imprimePessoa:
 	sub r4, r4, r5
 	sub r4, r4, r5
 	
+	;Imprime o chapeu.
+	load r1, chapeu
+	outchar r1,r4
+	
 	;Põe na posição do alimento e o imprime.
 	inc r4
 	load r1, alimento
@@ -490,8 +673,8 @@ imprimePessoa:
 	add r4, r4, r5
 	
 	;Carrega o caractere da cabeça.
-	loadn r1, #cabeca
-	loadi r5, r1
+	load r5, cabeca
+	;loadi r5, r1
 
 	;ESCREVE 'cabeça' NA POSIÇÃO r4.
 	outchar r5, r4
@@ -500,26 +683,20 @@ imprimePessoa:
 	loadn r5, #1
 	load r3, maoEstaOcupada
 	cmp r3, r5
-	ceq levantaBraco
-	cne abaixaBraco
 	
 	;Carrega posição do corpo;
 	load r4, posicao
 	dec r4
+	load r5, braco_esq
+	outchar r5, r4
+	inc r4
+	load r5, corpo
+	outchar r5, r4
+	inc r4
 	
-	;Carrega um caractere do corpo.
-	loadi r5, r2
-	outchar r5, r4
-	;Carrega e imprime o próximo caractere do corpo.
-	inc r2
-	inc r4
-	loadi r5, r2
-	outchar r5, r4
-	;Carrega e imprime o próximo caractere do corpo.
-	inc r2
-	inc r4
-	loadi r5, r2
-	outchar r5, r4
+	ceq levantaBraco
+	cne abaixaBraco
+	
 	
 	;Obtem os valores dos registradores de volta.
 	pop r5
@@ -556,6 +733,64 @@ imprimeAlimentos:
 	outchar r2, r3
 	
 	pop r3
+<<<<<<< HEAD
+
+	halt
+	rts
+
+jogar:
+	push r0
+	loopJogo:
+		load r0, posicao
+		call imprimePessoa
+		call movimentaPersonagem
+		jmp loopJogo
+	pop r0
+	rts
+
+Menu:
+	;--ImprimeMenu--;
+	call print_menu_chapeu_Screen
+	push r0 ; input tecla
+	push r1 ; tecla a ser testada
+	push r2 ; numero aleatorio
+		LoopMenu:
+			;inchar r0
+			call GerarNumeroAleatorio
+			;store NumeroAleatorio, r0
+			loadn r1, #50 
+			cmp r0, r1
+			inc r2
+			ceq Tutorial ; digitou 1 pula pra Tutorial
+			loadn r1, #49  
+			cmp r0, r1
+			inc r2
+			jeq IniciaJogo ; digitou 2 pula IniciaJogo
+			loadn r1, #48 
+			cmp r0, r1 ; digitou 0 pula para SairMenu
+			inc r2
+			jeq SairMenu
+			jne LoopMenu ; se nao for nenhuma das opcoes pula para LoopMenu 
+			
+		IniciaJogo:
+			;store NumeroAleatorio, r0
+			pop r2
+			pop r1
+			pop r0
+			;call GerarNumeroAleatorio
+			call GerarComanda
+			load r0, ComandaAtual			
+			call print_telaScreen			
+			call ImprimeTelaJogo	
+			
+			;--IniciaJogo--;
+			call jogar
+			
+			jmp Menu
+			
+	SairMenu:		
+=======
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 	pop r2
 	pop r1
 	pop r0
@@ -563,19 +798,41 @@ imprimeAlimentos:
 
 levantaBraco:
 	;Põe o braço ao lado da cabeça.
-	inc r4
-	loadn r5, #'/'
+	loadn r5, #' '
 	outchar r5, r4
-	
-	;Atualiza o corpo
-	loadn r2, #corpoBracoLevantado
-	
+	loadn r5, #40
+	sub r4,r4, r5
+	load r5, braco_esq
+	outchar r5, r4
 	rts
 
 abaixaBraco:
-	loadn r2, #corpoNormal
+	load r5, braco_dir
+	outchar r5, r4
+	loadn r5, #40
+	sub r4, r4, r5
+	loadn r5, #' '
+	outchar r5, r4
 	rts
+<<<<<<< HEAD
+
+
+;----------------------------------------
+
+Tutorial:
+	;--ImprimeTelaTutorial--;
+	call print_tutorialScreen
+	LoopTutorial:
+		inchar r0
+		loadn r1, #48 ; digitou 0 volta para Menu
+		cmp r0, r1
+		inc r2
+		jne LoopTutorial
+		jeq Menu
+	rts
+=======
   ;----------------------------------------
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 
 GerarNumeroAleatorio:
 	;push r0
@@ -585,6 +842,10 @@ GerarNumeroAleatorio:
 		loadn r1, #255
 		cmp r0, r1
 		call LoopGerarNumeroAleatorio
+<<<<<<< HEAD
+		;breakp
+=======
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 		store NumeroAleatorio, r2
 		
 	pop r2
