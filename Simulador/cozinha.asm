@@ -246,10 +246,11 @@ main:
 
 Menu:
 	;--ImprimeMenu--;
-	call print_menu_chapeu_Screen
 	push r0 ; input tecla
 	push r1 ; tecla a ser testada
 	push r2 ; numero aleatorio
+	iniciaMenu:
+	call print_menu_chapeu_Screen
 		LoopMenu:
 			;inchar r0
 			call GerarNumeroAleatorio
@@ -266,11 +267,7 @@ Menu:
 			inc r2
 			jeq IniciaJogo 
 			
-			loadn r1, #48 
-			cmp r0, r1 ; digitou 0 pula para SairMenu
-			inc r2
-			jeq SairMenu
-			jne LoopMenu ; se nao for nenhuma das opcoes pula para LoopMenu 
+			jmp LoopMenu
 			
 		IniciaJogo:
 			;store NumeroAleatorio, r0
@@ -301,12 +298,11 @@ Tutorial:
 	;--ImprimeTelaTutorial--;
 	call print_tutorialScreen
 	LoopTutorial:
+		loadn r1, #255 ; digitou 0 volta para Menu
 		inchar r0
-		loadn r1, #48 ; digitou 0 volta para Menu
 		cmp r0, r1
-		inc r2
-		jne LoopTutorial
-		jeq Menu
+		jeq LoopTutorial
+		jne iniciaMenu
 	rts
 
 jogar:
@@ -327,7 +323,16 @@ jogar:
 		
 	terminaJogo:
 		;IMPRIME TELA DE FIM DE JOGO.
-		
+		call print_fimScreen
+		call Imprime_Score
+		esperaTeclaFim:
+			loadn r1, #' '
+			loadn r2, #255
+			inchar r0
+			cmp r2,r0
+			jeq esperaTeclaFim
+			cmp r1,r0
+			jne esperaTeclaFim
 	pop r1
 	pop r0
 	rts
@@ -454,6 +459,7 @@ entregarPedido:
 		
 		;Imprime nova comanda
 		call ImprimeComanda
+		call ApagaHambuger
 		jmp fimPedido
 	
 	erroEntrega:
@@ -645,9 +651,17 @@ pegaAlimento:
 		load r3, alimentoNaMao
 		load r2, pedidoNaBandeja
 		
+		;Verifica se alimento já está na bandeja.
 		and r4, r2, r3
 		cmp r4,r3
 		jeq alimentoPegado
+		
+		;Imprime hamburguer se não houver nada na bandeja.
+		loadn r4, #0
+		cmp r4, r2
+		ceq ImprimeHambuger
+		
+		;Atualiza bandeja.
 		add r2, r2, r3
 		store pedidoNaBandeja, r2
 		
