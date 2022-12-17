@@ -950,18 +950,18 @@ tela : var #1200
   static tela + #903, #6
   static tela + #904, #6
   static tela + #905, #6
-  static tela + #906, #0
-  static tela + #907, #0
-  static tela + #908, #0
+  static tela + #906, #6
+  static tela + #907, #6
+  static tela + #908, #6
   static tela + #909, #6
-  static tela + #910, #2048
-  static tela + #911, #2048
-  static tela + #912, #2048
-  static tela + #913, #2048
-  static tela + #914, #2048
+  static tela + #910, #6
+  static tela + #911, #6
+  static tela + #912, #6
+  static tela + #913, #6
+  static tela + #914, #6
   static tela + #915, #6
-  static tela + #916, #2816
-  static tela + #917, #2816
+  static tela + #916, #6
+  static tela + #917, #2942
   static tela + #918, #6
   static tela + #919, #10
 
@@ -992,18 +992,18 @@ tela : var #1200
   static tela + #943, #3967
   static tela + #944, #3967
   static tela + #945, #3967
-  static tela + #946, #0
-  static tela + #947, #0
-  static tela + #948, #0
+  static tela + #946, #2048
+  static tela + #947, #2048
+  static tela + #948, #3967
   static tela + #949, #3967
-  static tela + #950, #2048
-  static tela + #951, #2048
-  static tela + #952, #2048
-  static tela + #953, #2048
-  static tela + #954, #2048
+  static tela + #950, #9
+  static tela + #951, #6
+  static tela + #952, #6
+  static tela + #953, #6
+  static tela + #954, #10
   static tela + #955, #3967
-  static tela + #956, #2816
-  static tela + #957, #2816
+  static tela + #956, #3967
+  static tela + #957, #3967
   static tela + #958, #3967
   static tela + #959, #8
 
@@ -1034,15 +1034,15 @@ tela : var #1200
   static tela + #983, #3967
   static tela + #984, #3967
   static tela + #985, #3967
-  static tela + #986, #0
-  static tela + #987, #0
-  static tela + #988, #0
+  static tela + #986, #2048
+  static tela + #987, #2048
+  static tela + #988, #3967
   static tela + #989, #3967
-  static tela + #990, #2048
-  static tela + #991, #2048
-  static tela + #992, #2048
-  static tela + #993, #2048
-  static tela + #994, #2048
+  static tela + #990, #5
+  static tela + #991, #3967
+  static tela + #992, #3967
+  static tela + #993, #3967
+  static tela + #994, #8
   static tela + #995, #3967
   static tela + #996, #3967
   static tela + #997, #3967
@@ -1080,11 +1080,11 @@ tela : var #1200
   static tela + #1027, #3967
   static tela + #1028, #3967
   static tela + #1029, #3967
-  static tela + #1030, #3967
+  static tela + #1030, #5
   static tela + #1031, #3967
   static tela + #1032, #3967
   static tela + #1033, #3967
-  static tela + #1034, #3967
+  static tela + #1034, #8
   static tela + #1035, #3967
   static tela + #1036, #3967
   static tela + #1037, #3967
@@ -1122,11 +1122,11 @@ tela : var #1200
   static tela + #1067, #3967
   static tela + #1068, #3967
   static tela + #1069, #3967
-  static tela + #1070, #3967
+  static tela + #1070, #5
   static tela + #1071, #3967
   static tela + #1072, #3967
   static tela + #1073, #3967
-  static tela + #1074, #3967
+  static tela + #1074, #8
   static tela + #1075, #3967
   static tela + #1076, #3967
   static tela + #1077, #3967
@@ -1164,11 +1164,11 @@ tela : var #1200
   static tela + #1107, #3967
   static tela + #1108, #3967
   static tela + #1109, #3967
-  static tela + #1110, #3967
-  static tela + #1111, #3967
-  static tela + #1112, #3967
-  static tela + #1113, #3967
-  static tela + #1114, #3967
+  static tela + #1110, #12
+  static tela + #1111, #7
+  static tela + #1112, #7
+  static tela + #1113, #7
+  static tela + #1114, #11
   static tela + #1115, #3967
   static tela + #1116, #3967
   static tela + #1117, #3967
@@ -1259,7 +1259,7 @@ tela : var #1200
   static tela + #1198, #7
   static tela + #1199, #11
 
-printtelaScreen:
+print_telaScreen:
   push R0
   push R1
   push R2
@@ -1269,7 +1269,7 @@ printtelaScreen:
   loadn R1, #0
   loadn R2, #1200
 
-  printtelaScreenLoop:
+  print_telaScreenLoop:
 
     add R3,R0,R1
     loadi R3, R3
@@ -1277,7 +1277,7 @@ printtelaScreen:
     inc R1
     cmp R1, R2
 
-    jne printtelaScreenLoop
+    jne print_telaScreenLoop
 
   pop R3
   pop R2

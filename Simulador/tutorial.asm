@@ -992,8 +992,8 @@ tutorial : var #1200
   static tutorial + #943, #3967
   static tutorial + #944, #3967
   static tutorial + #945, #3967
-  static tutorial + #946, #0
-  static tutorial + #947, #0
+  static tutorial + #946, #2048
+  static tutorial + #947, #2048
   static tutorial + #948, #3967
   static tutorial + #949, #3967
   static tutorial + #950, #9
@@ -1034,8 +1034,8 @@ tutorial : var #1200
   static tutorial + #983, #3967
   static tutorial + #984, #3967
   static tutorial + #985, #3967
-  static tutorial + #986, #0
-  static tutorial + #987, #0
+  static tutorial + #986, #2048
+  static tutorial + #987, #2048
   static tutorial + #988, #3967
   static tutorial + #989, #3967
   static tutorial + #990, #5
@@ -1259,7 +1259,7 @@ tutorial : var #1200
   static tutorial + #1198, #7
   static tutorial + #1199, #11
 
-printtutorialScreen:
+print_tutorialScreen:
   push R0
   push R1
   push R2
@@ -1269,7 +1269,7 @@ printtutorialScreen:
   loadn R1, #0
   loadn R2, #1200
 
-  printtutorialScreenLoop:
+  print_tutorialScreenLoop:
 
     add R3,R0,R1
     loadi R3, R3
@@ -1277,7 +1277,7 @@ printtutorialScreen:
     inc R1
     cmp R1, R2
 
-    jne printtutorialScreenLoop
+    jne print_tutorialScreenLoop
 
   pop R3
   pop R2
