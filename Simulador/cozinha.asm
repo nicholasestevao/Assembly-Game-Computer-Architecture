@@ -415,6 +415,11 @@ entregarPedido:
 	
 	load r0, ComandaAtual
 	load r1, pedidoNaBandeja
+	loadn r2, #0
+	
+	;Se não há pedido na bandeja, não se pode entregar pedido.
+	cmp r2,r1
+	jeq erroEntrega
 	
 	;realizar um AND entre comandaAtual e pedidoNaBandeja deve retornar a própria comandaAtual, se estiver correto.
 	and r2, r0, r1
@@ -433,12 +438,12 @@ entregarPedido:
 		jmp pedidoEntregado
 
 	pedidoEntregado:
+		call ImprimeStringComandaEntregue
 		;Gera uma nova comanda a partir do número da
-		inc r1
-		store NumeroAleatorio, r1
+		call GerarNumeroAleatorio
 		call GerarComanda
 		
-		;Reinicia a bandeija.
+		;Reinicia a bandeja.
 		loadn r0, #0
 		store pedidoNaBandeja, r0
 		
@@ -449,7 +454,18 @@ entregarPedido:
 		
 		;Imprime nova comanda
 		call ImprimeComanda
+		jmp fimPedido
+	
+	erroEntrega:
+		call ImprimeStringBandejaVazia
+		esperaTecla:
+			loadn r0, #255
+			inchar r1
+			cmp r1,r0
+			jeq esperaTecla
+		call ApagaLinha440
 		
+	fimPedido:
 	pop r2
 	pop r1
 	pop r0
@@ -812,6 +828,7 @@ GerarNumeroAleatorio:
 		loadn r1, #255
 		cmp r0, r1
 		call LoopGerarNumeroAleatorio
+		call ApagaLinha440
 		store NumeroAleatorio, r2
 		
 	pop r2
