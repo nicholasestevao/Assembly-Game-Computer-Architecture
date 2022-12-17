@@ -144,6 +144,10 @@ pedidoNaBandeja: var #1 static pedidoNaBandeja, #0
 
 alimentoNaMao: var #1 static alimentoNaMao, #0
 
+rodadas: var #1 static rodadas, #0
+
+quantidadeRodadas: var #1 static quantidadeRodadas, #5
+
 ;-------------------------------------------
 
 NomeRestaurante: string "Burger King"
@@ -247,15 +251,19 @@ Menu:
 		LoopMenu:
 			;inchar r0
 			call GerarNumeroAleatorio
-			;store NumeroAleatorio, r0
+			
+			;Tecla '2': INICIA TUTORIAL
 			loadn r1, #50 
 			cmp r0, r1
 			inc r2
-			ceq Tutorial ; digitou 1 pula pra Tutorial
+			ceq Tutorial
+			
+			;Tecla '1': INICIA JOGO.
 			loadn r1, #49  
 			cmp r0, r1
 			inc r2
-			jeq IniciaJogo ; digitou 2 pula IniciaJogo
+			jeq IniciaJogo 
+			
 			loadn r1, #48 
 			cmp r0, r1 ; digitou 0 pula para SairMenu
 			inc r2
@@ -271,8 +279,10 @@ Menu:
 			call GerarComanda
 			load r0, ComandaAtual			
 			call print_telaScreen			
-			call ImprimeTelaJogo
+			call ImprimeComanda
 			call Zera_Score
+			loadn r1, #0
+			store rodadas, r1;
 			call Imprime_Score
 			;--IniciaJogo--;
       		call jogar
@@ -300,11 +310,24 @@ Tutorial:
 
 jogar:
 	push r0
+	push r1
 	loopJogo:
+	
+		;Verifica se o jogo acabou!
+		load r0, rodadas
+		load r1, quantidadeRodadas
+		cmp r0, r1
+		jeq terminaJogo
+		
 		load r0, posicao
 		call imprimePessoa
 		call movimentaPersonagem
 		jmp loopJogo
+		
+	terminaJogo:
+		;IMPRIME TELA DE FIM DE JOGO.
+		
+	pop r1
 	pop r0
 	rts
 
@@ -384,6 +407,52 @@ moveDireita:
 	fimMoveDireita:
 	rts
 
+entregarPedido:
+	push r0
+	push r1
+	push r2
+	
+	load r0, ComandaAtual
+	load r1, pedidoNaBandeja
+	
+	;realizar um AND entre comandaAtual e pedidoNaBandeja deve retornar a própria comandaAtual, se estiver correto.
+	and r2, r0, r1
+	cmp r2, r0
+	jeq pedidoCorreto
+	jne pedidoIncorreto
+	
+	pedidoCorreto:
+		;Incrementa os pontos.
+		call Inc_Score
+		jmp pedidoEntregado
+
+	pedidoIncorreto:
+		;Decrementa os pontos.
+		call Dec_Score
+		jmp pedidoEntregado
+
+	pedidoEntregado:
+		;Gera uma nova comanda a partir do número da
+		inc r1
+		store NumeroAleatorio, r1
+		call GerarComanda
+		
+		;Reinicia a bandeija.
+		loadn r0, #0
+		store pedidoNaBandeja, r0
+		
+		;Atualiza a rodada atual.
+		load r1, rodadas
+		inc r1
+		store rodadas, r1
+		
+		;Imprime nova comanda
+		call ImprimeComanda
+		
+	pop r2
+	pop r1
+	pop r0
+	rts
 
 pegaAlimento:
 	push r0
@@ -391,10 +460,6 @@ pegaAlimento:
 	push r2
 	push r3
 	push r4
-	
-	;Variável maoEstaOcupada começa como true (1).
-	;loadn r3, #1
-	;store maoEstaOcupada, r3
 	
 	;Carrega a posição do personagem.
 	load r0, posicao
@@ -427,12 +492,19 @@ pegaAlimento:
 	cmp r1,r0
 	jeq colocarBandeja
 	
+	;Verifica se a mão do jogador está ocupada. Se ele não pode fazer algo até soltar um alimento
+	;então a ação fica depois dessa verificação.
 	load r1, maoEstaOcupada
 	loadn r2, #1
 	cmp r1, r2
 	jeq alimentoPegado 
 	
-	;Carrega a posição do alimento 1 e vê se o personagem está lá.
+	;Clica na campanha para finalizar pedido.
+	load r1, posCampanha
+	cmp r1,r0
+	ceq entregarPedido
+	
+	;Carrega a posição do tomate e verifica a posição do jogador.
 	load r1, posTomate
 	cmp r1,r0
 	jeq pegarTomate
@@ -486,7 +558,6 @@ pegaAlimento:
 	load r1, posMostarda
 	cmp r1,r0
 	jeq pegarMostarda
-	
 	
 	jmp alimentoPegado
 	
@@ -560,13 +631,8 @@ pegaAlimento:
 		and r4, r2, r3
 		cmp r4,r3
 		jeq alimentoPegado
-		
-		
 		add r2, r2, r3
-		loadn r3, #620
-		outchar r2,r3
 		store pedidoNaBandeja, r2
-		call Inc_Score
 		
 	soltarAlimento:
 		loadn r3, #0
@@ -576,6 +642,7 @@ pegaAlimento:
 		loadn r3, #' '
 		store alimento, r3
 		jmp alimentoPegado
+
 	
 	alimentoPegado:
 	pop r4
@@ -710,37 +777,6 @@ imprimePessoa:
 	;Obtem os valores dos registradores de volta.
 	pop r5
 	pop r4
-	pop r3
-	pop r2
-	pop r1
-	pop r0
-	rts
-	
-imprimeAlimentos:
-	push r0
-	push r1
-	push r2
-	push r3
-	
-	load r0, caractereAlimento1
-	load r1, caractereAlimento2
-	load r2, caractereAlimento3
-	
-	loadn r3, #840
-	inc r3
-	
-	outchar r0, r3
-	
-	inc r3
-	inc r3
-	
-	outchar r1, r3
-	
-	inc r3
-	inc r3
-	
-	outchar r2, r3
-	
 	pop r3
 	pop r2
 	pop r1
@@ -941,7 +977,7 @@ ComandaAtual_Recebe_Receita_9:
 	pop r0
 	rts
 	
-ImprimeTelaJogo:
+ImprimeComanda:
 	call printTextoComandaAtual
 	call printIngredientes
 	rts
@@ -956,13 +992,13 @@ printIngredientes:
 	push fr
 	
 	; bit 0 - tomate
-; bit 1 - alface
-; bit 2 - queijo
-; bit 3 - carne
-; bit 4 - ovo
-; bit 5 - maionese
-; bit 6 - ketchup
-; bit 7 - mostarda
+	; bit 1 - alface
+	; bit 2 - queijo
+	; bit 3 - carne
+	; bit 4 - ovo
+	; bit 5 - maionese
+	; bit 6 - ketchup
+	; bit 7 - mostarda
 	call limpaIngredientes
 
 	load r0, ComandaAtual
