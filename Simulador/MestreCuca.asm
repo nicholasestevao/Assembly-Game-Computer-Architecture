@@ -248,35 +248,30 @@ Menu:
 	;--ImprimeMenu--;
 	push r0 ; input tecla
 	push r1 ; tecla a ser testada
-	push r2 ; numero aleatorio
 	iniciaMenu:
 	call print_menu_chapeu_Screen
 		LoopMenu:
-			;inchar r0
 			call GerarNumeroAleatorio
 			
 			;Tecla '2': INICIA TUTORIAL
 			loadn r1, #50 
 			cmp r0, r1
-			inc r2
 			ceq Tutorial
 			
 			;Tecla '1': INICIA JOGO.
 			loadn r1, #49  
 			cmp r0, r1
-			inc r2
 			jeq IniciaJogo 
 			
 			jmp LoopMenu
 			
 		IniciaJogo:
 			;store NumeroAleatorio, r0
-			pop r2
 			pop r1
 			pop r0
+
 			;call GerarNumeroAleatorio
-			call GerarComanda
-			load r0, ComandaAtual			
+			call GerarComanda	
 			call print_telaScreen			
 			call ImprimeComanda
 			call Zera_Score
@@ -288,7 +283,6 @@ Menu:
 			jmp Menu
 			
 	SairMenu:		
-	pop r2
 	pop r1
 	pop r0
 	rts
@@ -1013,8 +1007,11 @@ ComandaAtual_Recebe_Receita_9:
 	rts
 	
 ImprimeComanda:
-	call printTextoComandaAtual
-	call printIngredientes
+  push r0
+    load r0, ComandaAtual		
+	  call printTextoComandaAtual
+	  call printIngredientes
+  pop r0
 	rts
 	
 printIngredientes:
