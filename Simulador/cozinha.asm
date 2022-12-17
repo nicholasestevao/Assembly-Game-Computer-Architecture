@@ -232,8 +232,71 @@ StringTomate: string "Tomate"
 
 main:
 	call Menu
+<<<<<<< HEAD
 	halt
 	rts
+=======
+	
+	halt
+	rts
+
+Menu:
+	;--ImprimeMenu--;
+	call print_menu_chapeu_Screen
+	push r0 ; input tecla
+	push r1 ; tecla a ser testada
+	push r2 ; numero aleatorio
+		LoopMenu:
+			;inchar r0
+			call GerarNumeroAleatorio
+			;store NumeroAleatorio, r0
+			loadn r1, #50 
+			cmp r0, r1
+			inc r2
+			ceq Tutorial ; digitou 1 pula pra Tutorial
+			loadn r1, #49  
+			cmp r0, r1
+			inc r2
+			jeq IniciaJogo ; digitou 2 pula IniciaJogo
+			loadn r1, #48 
+			cmp r0, r1 ; digitou 0 pula para SairMenu
+			inc r2
+			jeq SairMenu
+			jne LoopMenu ; se nao for nenhuma das opcoes pula para LoopMenu 
+			
+		IniciaJogo:
+			;store NumeroAleatorio, r0
+			pop r2
+			pop r1
+			pop r0
+			;call GerarNumeroAleatorio
+			call GerarComanda
+			load r0, ComandaAtual			
+			call print_telaScreen			
+			call ImprimeTelaJogo
+			breakp	
+			;--IniciaJogo--;
+			jmp Menu
+			
+	SairMenu:		
+	pop r2
+	pop r1
+	pop r0
+	rts
+
+
+Tutorial:
+	;--ImprimeTelaTutorial--;
+	call print_tutorialScreen
+	LoopTutorial:
+		inchar r0
+		loadn r1, #48 ; digitou 0 volta para Menu
+		cmp r0, r1
+		inc r2
+		jne LoopTutorial
+		jeq Menu
+	rts
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 
 ;----------FUNÇÕES DE MOVIMENTAÇÃO-------
 
@@ -668,6 +731,7 @@ imprimeAlimentos:
 	outchar r2, r3
 	
 	pop r3
+<<<<<<< HEAD
 
 	halt
 	rts
@@ -723,6 +787,8 @@ Menu:
 			jmp Menu
 			
 	SairMenu:		
+=======
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 	pop r2
 	pop r1
 	pop r0
@@ -746,6 +812,7 @@ abaixaBraco:
 	loadn r5, #' '
 	outchar r5, r4
 	rts
+<<<<<<< HEAD
 
 
 ;----------------------------------------
@@ -761,6 +828,9 @@ Tutorial:
 		jne LoopTutorial
 		jeq Menu
 	rts
+=======
+  ;----------------------------------------
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 
 GerarNumeroAleatorio:
 	;push r0
@@ -770,7 +840,10 @@ GerarNumeroAleatorio:
 		loadn r1, #255
 		cmp r0, r1
 		call LoopGerarNumeroAleatorio
+<<<<<<< HEAD
 		;breakp
+=======
+>>>>>>> a9ec613d7c8de13710dad6b485fea28a3e3c63d6
 		store NumeroAleatorio, r2
 		
 	pop r2
