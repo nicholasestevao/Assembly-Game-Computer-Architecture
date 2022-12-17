@@ -386,7 +386,7 @@ moveEsquerda:
 	;R3: limite esquerdo.
 	
 	;Carrega o limite esquerdo.
-	loadn r3, #801
+	loadn r3, #841
 	
 	;Compara r2 com r3.
 	cmp	r2, r3
@@ -403,7 +403,7 @@ moveDireita:
 	;R2: posição do personagem.
 	;R3: limite esquerdo.
 
-	loadn r3, #838
+	loadn r3, #878
 	cmp r2, r3
 	jeq fimMoveDireita
 	
@@ -735,6 +735,9 @@ limpaPessoaTela:
 		jmp limpaLinhaPersonagem
 	
 	fimLimpeza:
+	loadn r3, #9
+	loadn r1, #880
+	outchar r3,r1
 	pop r4
 	pop r3
 	pop r2
