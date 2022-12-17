@@ -235,6 +235,8 @@ StringQueijo: string "Queijo"
 StringAlface: string "Alface"
 StringTomate: string "Tomate"
 
+StringBandejaVazia: string "Bandeja Vazia!"
+StringComandaEntregue: string "Comanda Entregue!!"
 
 main:
 	call Menu
@@ -1160,6 +1162,49 @@ Zera_Score:
 		loadn r7, #0
 		store Score, r7		
 	pop r7
+	rts
+
+ImrimeStringBandejaVazia:
+	push r0
+	push r1
+	push r2
+		loadn r0, #454
+		loadn r1, #StringBandejaVazia	; Carrega r1 com o endereco do vetor que contem a mensagem
+		loadn r2, #0		; Seleciona a COR da Mensagem
+		call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	pop r2
+	pop r1
+	pop r0
+	rts
+
+ImrimeStringComandaEntregue:
+	push r0
+	push r1
+	push r2
+		loadn r0, #452
+		loadn r1, #StringComandaEntregue	; Carrega r1 com o endereco do vetor que contem a mensagem
+		loadn r2, #0		; Seleciona a COR da Mensagem
+		call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	pop r2
+	pop r1
+	pop r0
+	rts
+
+ApagaLinha440:
+	push r0
+	push r1
+	push r2
+		loadn r0, #32 ; " "
+		loadn r1, #440 ; linha 440
+		loadn r2, #480 ; linha 480
+		ApagaLinha440:
+			outchar r0, r1
+			inc r1
+			cmp r1, r2
+			jne ApagaLinha440
+	pop r2
+	pop r1
+	pop r0
 	rts
 
 imprimeIngrediente1:
