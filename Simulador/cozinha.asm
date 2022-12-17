@@ -175,6 +175,8 @@ Receita8: var #1 ; Variavel que guarda o codigo binario da receita 8
 Receita9: var #1 ; Variavel que guarda o codigo binario da receita 9
 	static Receita9, #224
 
+Score: var #1 ; Variavel que guarda a pontuacao atual
+  static Score, #0
 
 NomeReceita1: string "Hamburger (sem molho)" 	; Variavel que guarda o nome da receita 1
 NomeReceita2: string "Hamburger com ketchup" 	; Variavel que guarda o nome da receita 2
@@ -754,8 +756,6 @@ ImprimeTelaJogo:
 	call printIngredientes
 	rts
 	
-	
-	
 printIngredientes:
 	push r0		; 
 	push r1		; 
@@ -818,8 +818,6 @@ printIngredientes:
 	cmp r2, r1
 	ceq imprimeIngrediente8
 	
-	
-	
 	pop fr
 	pop r5
 	pop r4
@@ -866,6 +864,37 @@ limpaIngredientes:
 	
 	rts
 	
+Inc_Socre:
+  push r5
+  push r6
+  push r7
+    loadn r5, #0
+    loadn r6, #20
+    cmp r7, r5
+    jeq Sair_Inc_Socre
+    load r7, Score
+    add r7, r6, r5
+    store r5, Score
+
+  Sair_Inc_Socre:
+  pop r7
+  pop r6
+  pop r5
+  rts
+
+Dec_Socre:
+  push r5
+  push r6
+  push r7
+    loadn r6, #20
+    load r7, Score
+    SUB r7, r6, r5
+    store r5, Score
+  pop r7
+  pop r6
+  pop r5
+  rts
+
 imprimeIngrediente1:
 	push fr		; Protege o registrador de flags
 	push r0
@@ -1081,7 +1110,6 @@ imprimeIngrediente8:
 	pop r0	
 	pop fr
 	rts	
-
 
 ;********************************************************
 ;                   IMPRIME A PALAVRA DIGITADA
