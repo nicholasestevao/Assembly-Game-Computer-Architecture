@@ -287,7 +287,6 @@ Menu:
 	pop r0
 	rts
 
-
 Tutorial:
 	;--ImprimeTelaTutorial--;
 	call print_tutorialScreen
@@ -331,7 +330,9 @@ jogar:
 	pop r0
 	rts
 
-;----------FUNÇÕES DE MOVIMENTAÇÃO-------
+;***********************************
+;---------FUNÇÕES DE ENGINE---------
+;***********************************
 
 recebeComando:
 	;R0: tecla recebida.
@@ -420,9 +421,8 @@ entregarPedido:
 	cmp r2,r1
 	jeq erroEntrega
 	
-	;realizar um AND entre comandaAtual e pedidoNaBandeja deve retornar a própria comandaAtual, se estiver correto.
-	and r2, r0, r1
-	cmp r2, r0
+	;Compara o pedido na bandeja com a comanda.
+	cmp r1, r0
 	jeq pedidoCorreto
 	jne pedidoIncorreto
 	
@@ -678,139 +678,6 @@ pegaAlimento:
 	
 	rts
 
-limpaPessoaTela:
-	push r0
-	push r1
-	push r2
-	push r3
-	push r4
-	
-	;Lê a posição do personagem
-	load r0, posicao
-	;Lê o tamanho de uma linha.
-	loadn r1, #40
-	;Lê um espaço vazio.
-	loadn r2, #' '
-	;Lê o limite da limpeza.
-	mov r4,r0
-	inc r4
-	inc r4
-	
-	;Volta duas linhas a partir do braço esquerdo.
-	dec r0
-	dec r0
-	sub r0, r0, r1
-	sub r0, r0, r1
-	
-	;r3 recebe o limite da linha.
-	mov r3, r0
-	inc r3
-	inc r3
-	inc r3
-	inc r3
-	
-	limpaLinhaPersonagem:
-		outchar r2, r0 	;imprime vazio.
-		inc r0			;proxima posicao
-		outchar r2, r0 	;imprime vazio.
-		cmp r0, r3		;verifica se chegou no fim da linha.
-		jne limpaLinhaPersonagem	;se não chegou, reseta.
-		
-		cmp r3,r4		;Verifica se é a ultima linha.
-		jeq fimLimpeza
-		;Se chegou no limite da linha, volta duas posições
-		dec r0			
-		dec r0
-		dec r0
-		dec r0
-		;Pula uma linha.
-		add r0, r0, r1
-		add r3 , r3, r1
-		jmp limpaLinhaPersonagem
-	
-	fimLimpeza:
-	loadn r3, #9
-	loadn r1, #880
-	outchar r3,r1
-	pop r4
-	pop r3
-	pop r2
-	pop r1
-	pop r0
-	
-	rts
-
-imprimePessoa:
-	;R0: POSICAO.
-	;R1: ENDEREOÇO DA CABEÇA.
-	;R2: ENDEREÇO DO CORPO.
-	;R4: POSICAO DA CABEÇA.
-	;R5: CARACTERE A IMPRIMIR
-	
-	call limpaPessoaTela
-
-	;PEGA POSICAO DA CABECA.
-	push r0
-	push r1
-	push r2
-	push r3
-	push r4
-	push r5
-	
-	;Carrega a posição e volta duas linhas.
-	load r4, posicao
-	loadn r5, #40
-	sub r4, r4, r5
-	sub r4, r4, r5
-	
-	;Imprime o chapeu.
-	load r1, chapeu
-	outchar r1,r4
-	
-	;Põe na posição do alimento e o imprime.
-	inc r4
-	load r1, alimento
-	outchar r1, r4
-	
-	;Volta cursor para a posição da cabeça.
-	dec r4
-	add r4, r4, r5
-	
-	;Carrega o caractere da cabeça.
-	load r5, cabeca
-	;loadi r5, r1
-
-	;ESCREVE 'cabeça' NA POSIÇÃO r4.
-	outchar r5, r4
-	
-	;Verifica se a mão esta ocupada.
-	loadn r5, #1
-	load r3, maoEstaOcupada
-	cmp r3, r5
-	
-	;Carrega posição do corpo;
-	load r4, posicao
-	dec r4
-	load r5, braco_esq
-	outchar r5, r4
-	inc r4
-	load r5, corpo
-	outchar r5, r4
-	inc r4
-	
-	ceq levantaBraco
-	cne abaixaBraco
-	
-	
-	;Obtem os valores dos registradores de volta.
-	pop r5
-	pop r4
-	pop r3
-	pop r2
-	pop r1
-	pop r0
-	rts
-
 levantaBraco:
 	;Põe o braço ao lado da cabeça.
 	loadn r5, #' '
@@ -854,6 +721,11 @@ LoopGerarNumeroAleatorio:
 	inc r2
 	jeq LoopGerarNumeroAleatorio
 	rts 
+
+
+;*********************************
+;-------GERAÇÃO DE COMANDA--------
+;*********************************
 
 GerarComanda:
 	push r0		; 
@@ -1005,7 +877,13 @@ ComandaAtual_Recebe_Receita_9:
 		store TextoComandaAtual, r0
 	pop r0
 	rts
-	
+
+;-------------------------------
+
+;***********************************************
+;--------ROTINAS DE IMPRESSÃO E LIMPEZA--------.
+;***********************************************
+
 ImprimeComanda:
   push r0
     load r0, ComandaAtual		
@@ -1148,51 +1026,13 @@ Imprime_Score:
 			outchar r5, r4
 			dec r4
 			jmp Loop_Imprime_Zero_Score
-Sair_Imprime_Score:		
-	pop r7
-	pop r6
-	pop r5
-	pop r4
-	rts
-	
-Inc_Score:
-	push r6
-	push r7 ; Score atual
-		loadn r6, #65535
-		load r7, Score
-		cmp r7, r6 
-		jeq Sair_Inc_Score ; Se o score for o valor max do registrador nao incrementa
-		loadn r6, #20
-		add r7, r7, r6
-		store Score, r7
-	Sair_Inc_Score:    
-	pop r7
-	pop r6
-	call Imprime_Score
-	rts
 
-Dec_Score:
-	push r6
-	push r7 ; Score atual
-		loadn r6, #0
-		load r7, Score
-		cmp r7, r6
-		jeq Sair_Dec_Score ; Se o score for zero nao decrementa
-		loadn r6, #30
-		sub r7, r7, r6
-		store Score, r7
-	Sair_Dec_Score:    
-	pop r7
-	pop r6
-	call Imprime_Score
-	rts
-
-Zera_Score:
- 	push r7
-		loadn r7, #0
-		store Score, r7		
-	pop r7
-	rts
+	Sair_Imprime_Score:		
+		pop r7
+		pop r6
+		pop r5
+		pop r4
+		rts
 
 ImprimeStringBandejaVazia:
 	push r0
@@ -1489,39 +1329,84 @@ imprimeIngrediente8:
 	pop fr
 	rts	
 
-;********************************************************
-;                   IMPRIME A PALAVRA DIGITADA
-;********************************************************
-	
-printTextoComandaAtual:	; Seleciona uma mensagem para imprimir - Digite uma palavra!!
-	push fr		; Protege o registrador de flags
-	push r0
-	push r1
-	push r2
-	
-	loadn r0, #41		; Posicao na tela onde a mensagem sera' escrita
-	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
-	loadn r2, #0		; Seleciona a COR da Mensagem
-	
-	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
-	
-	loadn r0, #41		; Posicao na tela onde a mensagem sera' escrita
-	load r1, TextoComandaAtual	; Carrega r1 com o endereco do vetor que contem a mensagem
-	loadn r2, #0		; Seleciona a COR da Mensagem
-	
-	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
-	
-	pop r2
-	pop r1
-	pop r0	
-	pop fr
-	rts	
-	
-;---------------------------	
-;********************************************************
-;                   IMPRIME STRING
-;********************************************************
-	
+print_fimScreen:
+  push R0
+  push R1
+  push R2
+  push R3
+
+  loadn R0, #fim
+  loadn R1, #0
+  loadn R2, #1200
+
+  print_fimScreenLoop:
+
+    add R3,R0,R1
+    loadi R3, R3
+    outchar R3, R1
+    inc R1
+    cmp R1, R2
+
+    jne print_fimScreenLoop
+
+  pop R3
+  pop R2
+  pop R1
+  pop R0
+  rts
+
+print_telaScreen:
+  push R0
+  push R1
+  push R2
+  push R3
+
+  loadn R0, #tela
+  loadn R1, #0
+  loadn R2, #1200
+
+  print_telaScreenLoop:
+
+    add R3,R0,R1
+    loadi R3, R3
+    outchar R3, R1
+    inc R1
+    cmp R1, R2
+
+    jne print_telaScreenLoop
+
+  pop R3
+  pop R2
+  pop R1
+  pop R0
+  rts
+  
+print_menu_chapeu_Screen:
+  push R0
+  push R1
+  push R2
+  push R3
+
+  loadn R0, #menu_chapeu_
+  loadn R1, #0
+  loadn R2, #1200
+
+  print_menu_chapeu_ScreenLoop:
+
+    add R3,R0,R1
+    loadi R3, R3
+    outchar R3, R1
+    inc R1
+    cmp R1, R2
+
+    jne print_menu_chapeu_ScreenLoop
+
+  pop R3
+  pop R2
+  pop R1
+  pop R0
+  rts
+  
 ImprimeStr:	;  Rotina de Impresao de Mensagens:    r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
 	push fr		; Protege o registrador de flags
 	push r0	; protege o r0 na pilha para preservar seu valor
@@ -1551,7 +1436,218 @@ ImprimeStr:	;  Rotina de Impresao de Mensagens:    r0 = Posicao da tela que o pr
 	pop fr
 	rts
 	
-	menu_chapeu_ : var #1200
+printTextoComandaAtual:	; Seleciona uma mensagem para imprimir - Digite uma palavra!!
+	push fr		; Protege o registrador de flags
+	push r0
+	push r1
+	push r2
+	
+	loadn r0, #41		; Posicao na tela onde a mensagem sera' escrita
+	loadn r1, #Espaco	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	loadn r0, #41		; Posicao na tela onde a mensagem sera' escrita
+	load r1, TextoComandaAtual	; Carrega r1 com o endereco do vetor que contem a mensagem
+	loadn r2, #0		; Seleciona a COR da Mensagem
+	
+	call ImprimeStr   	; r0 = Posicao da tela que o primeiro caractere da mensagem sera' impresso;  r1 = endereco onde comeca a mensagem; r2 = cor da mensagem.   Obs: a mensagem sera' impressa ate' encontrar "/0"
+	
+	pop r2
+	pop r1
+	pop r0	
+	pop fr
+	rts	
+
+limpaPessoaTela:
+	push r0
+	push r1
+	push r2
+	push r3
+	push r4
+	
+	;Lê a posição do personagem
+	load r0, posicao
+	;Lê o tamanho de uma linha.
+	loadn r1, #40
+	;Lê um espaço vazio.
+	loadn r2, #' '
+	;Lê o limite da limpeza.
+	mov r4,r0
+	inc r4
+	inc r4
+	
+	;Volta duas linhas a partir do braço esquerdo.
+	dec r0
+	dec r0
+	sub r0, r0, r1
+	sub r0, r0, r1
+	
+	;r3 recebe o limite da linha.
+	mov r3, r0
+	inc r3
+	inc r3
+	inc r3
+	inc r3
+	
+	limpaLinhaPersonagem:
+		outchar r2, r0 	;imprime vazio.
+		inc r0			;proxima posicao
+		outchar r2, r0 	;imprime vazio.
+		cmp r0, r3		;verifica se chegou no fim da linha.
+		jne limpaLinhaPersonagem	;se não chegou, reseta.
+		
+		cmp r3,r4		;Verifica se é a ultima linha.
+		jeq fimLimpeza
+		;Se chegou no limite da linha, volta duas posições
+		dec r0			
+		dec r0
+		dec r0
+		dec r0
+		;Pula uma linha.
+		add r0, r0, r1
+		add r3 , r3, r1
+		jmp limpaLinhaPersonagem
+	
+	fimLimpeza:
+	loadn r3, #9
+	loadn r1, #880
+	outchar r3,r1
+	pop r4
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	
+	rts
+
+imprimePessoa:
+	;R0: POSICAO.
+	;R1: ENDEREOÇO DA CABEÇA.
+	;R2: ENDEREÇO DO CORPO.
+	;R4: POSICAO DA CABEÇA.
+	;R5: CARACTERE A IMPRIMIR
+	
+	call limpaPessoaTela
+
+	;PEGA POSICAO DA CABECA.
+	push r0
+	push r1
+	push r2
+	push r3
+	push r4
+	push r5
+	
+	;Carrega a posição e volta duas linhas.
+	load r4, posicao
+	loadn r5, #40
+	sub r4, r4, r5
+	sub r4, r4, r5
+	
+	;Imprime o chapeu.
+	load r1, chapeu
+	outchar r1,r4
+	
+	;Põe na posição do alimento e o imprime.
+	inc r4
+	load r1, alimento
+	outchar r1, r4
+	
+	;Volta cursor para a posição da cabeça.
+	dec r4
+	add r4, r4, r5
+	
+	;Carrega o caractere da cabeça.
+	load r5, cabeca
+	;loadi r5, r1
+
+	;ESCREVE 'cabeça' NA POSIÇÃO r4.
+	outchar r5, r4
+	
+	;Verifica se a mão esta ocupada.
+	loadn r5, #1
+	load r3, maoEstaOcupada
+	cmp r3, r5
+	
+	;Carrega posição do corpo;
+	load r4, posicao
+	dec r4
+	load r5, braco_esq
+	outchar r5, r4
+	inc r4
+	load r5, corpo
+	outchar r5, r4
+	inc r4
+	
+	ceq levantaBraco
+	cne abaixaBraco
+	
+	
+	;Obtem os valores dos registradores de volta.
+	pop r5
+	pop r4
+	pop r3
+	pop r2
+	pop r1
+	pop r0
+	rts
+;------------------------------------------
+
+Inc_Score:
+	push r6
+	push r7 ; Score atual
+		loadn r6, #65535
+		load r7, Score
+		cmp r7, r6 
+		jeq Sair_Inc_Score ; Se o score for o valor max do registrador nao incrementa
+		loadn r6, #20
+		add r7, r7, r6
+		store Score, r7
+	Sair_Inc_Score:    
+	pop r7
+	pop r6
+	call Imprime_Score
+	rts
+
+Dec_Score:
+	push r6
+	push r7 ; Score atual
+		loadn r6, #0
+		load r7, Score
+		cmp r7, r6
+		jeq Sair_Dec_Score ; Se o score for zero nao decrementa
+		loadn r6, #30
+		sub r7, r7, r6
+		store Score, r7
+	Sair_Dec_Score:    
+	pop r7
+	pop r6
+	call Imprime_Score
+	rts
+
+Zera_Score:
+ 	push r7
+		loadn r7, #0
+		store Score, r7		
+	pop r7
+	rts
+
+
+
+;********************************************************
+;                   IMPRIME A PALAVRA DIGITADA
+;********************************************************
+	
+
+	
+;---------------------------	
+;********************************************************
+;                   IMPRIME STRING
+;********************************************************
+	
+	
+menu_chapeu_ : var #1200
   ;Linha 0
   static menu_chapeu_ + #0, #3967
   static menu_chapeu_ + #1, #127
@@ -2811,33 +2907,7 @@ ImprimeStr:	;  Rotina de Impresao de Mensagens:    r0 = Posicao da tela que o pr
   static menu_chapeu_ + #1197, #103
   static menu_chapeu_ + #1198, #104
   static menu_chapeu_ + #1199, #116
-
-print_menu_chapeu_Screen:
-  push R0
-  push R1
-  push R2
-  push R3
-
-  loadn R0, #menu_chapeu_
-  loadn R1, #0
-  loadn R2, #1200
-
-  print_menu_chapeu_ScreenLoop:
-
-    add R3,R0,R1
-    loadi R3, R3
-    outchar R3, R1
-    inc R1
-    cmp R1, R2
-
-    jne print_menu_chapeu_ScreenLoop
-
-  pop R3
-  pop R2
-  pop R1
-  pop R0
-  rts
-  
+ 
 tutorial : var #1200
   ;Linha 0
   static tutorial + #0, #9
@@ -5386,32 +5456,6 @@ tela : var #1200
   static tela + #1198, #7
   static tela + #1199, #11
 
-print_telaScreen:
-  push R0
-  push R1
-  push R2
-  push R3
-
-  loadn R0, #tela
-  loadn R1, #0
-  loadn R2, #1200
-
-  print_telaScreenLoop:
-
-    add R3,R0,R1
-    loadi R3, R3
-    outchar R3, R1
-    inc R1
-    cmp R1, R2
-
-    jne print_telaScreenLoop
-
-  pop R3
-  pop R2
-  pop R1
-  pop R0
-  rts
-
 fim : var #1200
   ;Linha 0
   static fim + #0, #3967
@@ -6673,28 +6717,3 @@ fim : var #1200
   static fim + #1198, #3967
   static fim + #1199, #3967
 
-print_fimScreen:
-  push R0
-  push R1
-  push R2
-  push R3
-
-  loadn R0, #fim
-  loadn R1, #0
-  loadn R2, #1200
-
-  print_fimScreenLoop:
-
-    add R3,R0,R1
-    loadi R3, R3
-    outchar R3, R1
-    inc R1
-    cmp R1, R2
-
-    jne print_fimScreenLoop
-
-  pop R3
-  pop R2
-  pop R1
-  pop R0
-  rts
