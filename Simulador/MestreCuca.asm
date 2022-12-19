@@ -146,7 +146,7 @@ alimentoNaMao: var #1 static alimentoNaMao, #0
 
 rodadas: var #1 static rodadas, #0
 
-quantidadeRodadas: var #1 static quantidadeRodadas, #5
+quantidadeRodadas: var #1 static quantidadeRodadas, #10
 
 ;-------------------------------------------
 
@@ -468,6 +468,24 @@ entregarPedido:
 	pop r1
 	pop r0
 	rts
+	
+verificaDesperdicio:
+	push fr
+	push r0
+	push r1
+	push r2
+	
+	load r0, alimentoNaMao
+	loadn r1, #0
+	
+	cmp r0, r1
+	cne Dec_ScoreLixo
+	
+	pop r2
+	pop r1
+	pop r0
+	pop fr
+	rts
 
 pegaAlimento:
 	push r0
@@ -482,9 +500,11 @@ pegaAlimento:
 	;Carrega a posição do alimento 3 e vê se o personagem está lá.
 	load r1, posLixeira
 	cmp r1,r0
+	ceq verificaDesperdicio
 	jeq soltarAlimento
 	inc r1
 	cmp r1,r0
+	ceq verificaDesperdicio
 	jeq soltarAlimento
 	
 	;Verifica se está colocando comida na bandeja.
@@ -726,7 +746,7 @@ Inc_Score:
 		load r7, Score
 		cmp r7, r6 
 		jeq Sair_Inc_Score ; Se o score for o valor max do registrador nao incrementa
-		loadn r6, #20
+		loadn r6, #200
 		add r7, r7, r6
 		store Score, r7
 	Sair_Inc_Score:    
@@ -742,12 +762,30 @@ Dec_Score:
 		load r7, Score
 		cmp r7, r6
 		jeq Sair_Dec_Score ; Se o score for zero nao decrementa
-		loadn r6, #30
+		loadn r6, #300
 		sub r7, r7, r6
 		store Score, r7
 	Sair_Dec_Score:    
 	pop r7
 	pop r6
+	call Imprime_Score
+	rts
+
+Dec_ScoreLixo:
+	push fr
+	push r6
+	push r7 ; Score atual
+		loadn r6, #0
+		load r7, Score
+		cmp r7, r6
+		jeq Sair_Dec_ScoreLixo ; Se o score for zero nao decrementa
+		loadn r6, #73
+		sub r7, r7, r6
+		store Score, r7
+	Sair_Dec_ScoreLixo:    
+	pop r7
+	pop r6
+	pop fr
 	call Imprime_Score
 	rts
 
@@ -6700,4 +6738,3 @@ fim : var #1200
   static fim + #1197, #3967
   static fim + #1198, #3967
   static fim + #1199, #3967
-
