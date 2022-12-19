@@ -694,7 +694,6 @@ abaixaBraco:
 	loadn r5, #' '
 	outchar r5, r4
 	rts
-  ;----------------------------------------
 
 GerarNumeroAleatorio:
 	;push r0
@@ -720,6 +719,46 @@ LoopGerarNumeroAleatorio:
 	jeq LoopGerarNumeroAleatorio
 	rts 
 
+Inc_Score:
+	push r6
+	push r7 ; Score atual
+		loadn r6, #65535
+		load r7, Score
+		cmp r7, r6 
+		jeq Sair_Inc_Score ; Se o score for o valor max do registrador nao incrementa
+		loadn r6, #20
+		add r7, r7, r6
+		store Score, r7
+	Sair_Inc_Score:    
+	pop r7
+	pop r6
+	call Imprime_Score
+	rts
+
+Dec_Score:
+	push r6
+	push r7 ; Score atual
+		loadn r6, #0
+		load r7, Score
+		cmp r7, r6
+		jeq Sair_Dec_Score ; Se o score for zero nao decrementa
+		loadn r6, #30
+		sub r7, r7, r6
+		store Score, r7
+	Sair_Dec_Score:    
+	pop r7
+	pop r6
+	call Imprime_Score
+	rts
+
+Zera_Score:
+ 	push r7
+		loadn r7, #0
+		store Score, r7		
+	pop r7
+	rts
+
+;-------------------------------------------------------
 
 ;*********************************
 ;-------GERAÇÃO DE COMANDA--------
@@ -794,7 +833,7 @@ GerarComanda:
 	pop r1
 	pop r0
 	rts
-	
+
 ComandaAtual_Recebe_Receita_1:
 	push r0
 		load r0, Receita1
@@ -1378,7 +1417,33 @@ print_telaScreen:
   pop R1
   pop R0
   rts
-  
+
+print_tutorialScreen:
+  push R0
+  push R1
+  push R2
+  push R3
+
+  loadn R0, #tutorial
+  loadn R1, #0
+  loadn R2, #1200
+
+  print_tutorialScreenLoop:
+
+    add R3,R0,R1
+    loadi R3, R3
+    outchar R3, R1
+    inc R1
+    cmp R1, R2
+
+    jne print_tutorialScreenLoop
+
+  pop R3
+  pop R2
+  pop R1
+  pop R0
+  rts
+
 print_menu_chapeu_Screen:
   push R0
   push R1
@@ -1591,59 +1656,6 @@ imprimePessoa:
 	pop r0
 	rts
 ;------------------------------------------
-
-Inc_Score:
-	push r6
-	push r7 ; Score atual
-		loadn r6, #65535
-		load r7, Score
-		cmp r7, r6 
-		jeq Sair_Inc_Score ; Se o score for o valor max do registrador nao incrementa
-		loadn r6, #20
-		add r7, r7, r6
-		store Score, r7
-	Sair_Inc_Score:    
-	pop r7
-	pop r6
-	call Imprime_Score
-	rts
-
-Dec_Score:
-	push r6
-	push r7 ; Score atual
-		loadn r6, #0
-		load r7, Score
-		cmp r7, r6
-		jeq Sair_Dec_Score ; Se o score for zero nao decrementa
-		loadn r6, #30
-		sub r7, r7, r6
-		store Score, r7
-	Sair_Dec_Score:    
-	pop r7
-	pop r6
-	call Imprime_Score
-	rts
-
-Zera_Score:
- 	push r7
-		loadn r7, #0
-		store Score, r7		
-	pop r7
-	rts
-
-
-
-;********************************************************
-;                   IMPRIME A PALAVRA DIGITADA
-;********************************************************
-	
-
-	
-;---------------------------	
-;********************************************************
-;                   IMPRIME STRING
-;********************************************************
-	
 	
 menu_chapeu_ : var #1200
   ;Linha 0
@@ -4166,32 +4178,6 @@ tutorial : var #1200
   static tutorial + #1197, #7
   static tutorial + #1198, #7
   static tutorial + #1199, #11
-
-print_tutorialScreen:
-  push R0
-  push R1
-  push R2
-  push R3
-
-  loadn R0, #tutorial
-  loadn R1, #0
-  loadn R2, #1200
-
-  print_tutorialScreenLoop:
-
-    add R3,R0,R1
-    loadi R3, R3
-    outchar R3, R1
-    inc R1
-    cmp R1, R2
-
-    jne print_tutorialScreenLoop
-
-  pop R3
-  pop R2
-  pop R1
-  pop R0
-  rts
   
 tela : var #1200
   ;Linha 0
