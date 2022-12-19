@@ -35,11 +35,11 @@ fim : var #1200
   static fim + #32, #68
   static fim + #33, #58
   static fim + #34, #3967
-  static fim + #35, #48
-  static fim + #36, #48
-  static fim + #37, #48
-  static fim + #38, #48
-  static fim + #39, #48
+  static fim + #35, #3967
+  static fim + #36, #3967
+  static fim + #37, #3967
+  static fim + #38, #3967
+  static fim + #39, #3967
 
   ;Linha 1
   static fim + #40, #3967
@@ -431,11 +431,11 @@ fim : var #1200
   static fim + #408, #0
   static fim + #409, #0
   static fim + #410, #3967
-  static fim + #411, #3
+  static fim + #411, #0
   static fim + #412, #3967
   static fim + #413, #3967
   static fim + #414, #3967
-  static fim + #415, #1
+  static fim + #415, #0
   static fim + #416, #3967
   static fim + #417, #0
   static fim + #418, #0
@@ -458,7 +458,7 @@ fim : var #1200
   static fim + #435, #0
   static fim + #436, #0
   static fim + #437, #0
-  static fim + #438, #3
+  static fim + #438, #3967
   static fim + #439, #3967
 
   ;Linha 11
@@ -474,9 +474,9 @@ fim : var #1200
   static fim + #449, #0
   static fim + #450, #3967
   static fim + #451, #0
-  static fim + #452, #3
+  static fim + #452, #0
   static fim + #453, #3967
-  static fim + #454, #1
+  static fim + #454, #0
   static fim + #455, #0
   static fim + #456, #3967
   static fim + #457, #0
@@ -516,9 +516,9 @@ fim : var #1200
   static fim + #489, #0
   static fim + #490, #3967
   static fim + #491, #0
-  static fim + #492, #2
+  static fim + #492, #3967
   static fim + #493, #0
-  static fim + #494, #125
+  static fim + #494, #3967
   static fim + #495, #0
   static fim + #496, #3967
   static fim + #497, #0
@@ -542,7 +542,7 @@ fim : var #1200
   static fim + #515, #0
   static fim + #516, #0
   static fim + #517, #0
-  static fim + #518, #3
+  static fim + #518, #3967
   static fim + #519, #3967
 
   ;Linha 13
@@ -571,11 +571,11 @@ fim : var #1200
   static fim + #542, #3967
   static fim + #543, #0
   static fim + #544, #3967
-  static fim + #545, #2
-  static fim + #546, #3
+  static fim + #545, #3967
+  static fim + #546, #0
   static fim + #547, #3967
-  static fim + #548, #1
-  static fim + #549, #125
+  static fim + #548, #0
+  static fim + #549, #3967
   static fim + #550, #3967
   static fim + #551, #0
   static fim + #552, #3967
@@ -614,9 +614,9 @@ fim : var #1200
   static fim + #583, #0
   static fim + #584, #3967
   static fim + #585, #3967
-  static fim + #586, #2
+  static fim + #586, #3967
   static fim + #587, #0
-  static fim + #588, #125
+  static fim + #588, #3967
   static fim + #589, #3967
   static fim + #590, #3967
   static fim + #591, #0
@@ -1259,7 +1259,7 @@ fim : var #1200
   static fim + #1198, #3967
   static fim + #1199, #3967
 
-print_fimScreen:
+printfimScreen:
   push R0
   push R1
   push R2
@@ -1269,7 +1269,7 @@ print_fimScreen:
   loadn R1, #0
   loadn R2, #1200
 
-  print_fimScreenLoop:
+  printfimScreenLoop:
 
     add R3,R0,R1
     loadi R3, R3
@@ -1277,7 +1277,7 @@ print_fimScreen:
     inc R1
     cmp R1, R2
 
-    jne print_fimScreenLoop
+    jne printfimScreenLoop
 
   pop R3
   pop R2
