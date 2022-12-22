@@ -277,7 +277,7 @@ Menu:
 			store rodadas, r1;
 			call Imprime_Score
 			;--IniciaJogo--;
-      call jogar
+      		call jogar
 			jmp Menu
 			
 	SairMenu:		
