@@ -1,4 +1,7 @@
-# Jogo de Organização e Arquitetura de Computadores
+# Mestre Cuca
+
+Jogo em assembly, para [processador do ICMC](https://github.com/simoesusp/Processador-ICMC), para a aquisição de nota na discuplina de 
+[SSC0902 Organizacao e Arquitetura de Computadores](https://gitlab.com/simoesusp/disciplinas/-/tree/master/SSC0902-ENG_COMP_Organizacao-e-Arquitetura-de-Computadores) ministrada pelo professor Eduardo do Valle Simões.
 
 ## Grupo
 
