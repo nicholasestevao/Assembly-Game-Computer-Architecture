@@ -143,4 +143,4 @@ FimDoJogo:
 	- [x] Fim de Jogo
 
 - [ ] Encontrar e Arrumar Bugs
-	- [ ] Erro de comanda errada (1 item só errado nao é contabilizado como errado)
+	- [x] Erro de comanda errada (1 item só errado nao é contabilizado como errado)
